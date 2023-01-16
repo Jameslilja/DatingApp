@@ -15,11 +15,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AppCompatButton button = (AppCompatButton) findViewById(R.id.buttonLogIn);
-        //button.setOnClickListener(new View.OnClickListener() {
-        //public void onClick(View v) {
+        button.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
         // Do something in response to button click
-        //}
-        //});
+        }
+        });
     }
 }
 

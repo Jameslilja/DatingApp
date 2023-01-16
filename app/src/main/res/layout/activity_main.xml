@@ -8,30 +8,26 @@
     android:backgroundTint="@color/white"
     tools:context=".MainActivity">
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogIn"
-        android:layout_width="215dp"
+        android:layout_width="213dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:background="#FF5722"
+        android:layout_marginTop="424dp"
+        android:background="#DD2C00"
         android:text="@string/buttonLogIn"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonSignUp"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints,TextContrastCheck,TouchTargetSizeCheck" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="624dp"
         android:background="@color/white"
         android:text="@string/register"
         android:textColor="#DD2C00"
@@ -42,30 +38,27 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/editTextTextEmailAddress2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="1dp"
-        android:autofillHints=""
+        android:layout_marginBottom="7dp"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogIn"
-        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+        tools:ignore="TextContrastCheck"
+        android:autofillHints="" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/editTextTextPassword2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="97dp"
-        android:layout_marginBottom="82dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="132dp"
         android:ems="10"
         android:hint="@string/password"
         android:importantForAutofill="no"
@@ -73,10 +66,9 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
-        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
-
+        tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
