@@ -1,7 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Dating app</string>
     <string name="password">Lösenord..</string>
     <string name="username">Användarnamn..</string>
     <string name="register">Registrera dig här helt utan kostnad</string>
     <string name="buttonLogIn">Logga in</string>
+    <string name="returnButton">Gå tillbaka</string>
 </resources>

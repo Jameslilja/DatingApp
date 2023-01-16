@@ -14,11 +14,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppCompatButton button = (AppCompatButton) findViewById(R.id.buttonLogIn);
-        button.setOnClickListener(new View.OnClickListener() {
+        AppCompatButton buttonLogIn = findViewById(R.id.buttonLogIn);
+        AppCompatButton buttonSignUp = findViewById(R.id.buttonSignUp);
+        buttonLogIn.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
-        // Do something in response to button click
+            setContentView(R.layout.authorized);
         }
+        });
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setContentView(R.layout.signup);
+            }
         });
     }
 }

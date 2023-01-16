@@ -4,6 +4,7 @@ plugins {
 
 android {
     compileSdk 32
+    buildToolVersion "20.0.0"
 
     defaultConfig {
         applicationId "com.example.datingapp"
