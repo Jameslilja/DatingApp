@@ -3,8 +3,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
-    buildToolVersion "20.0.0"
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.datingapp"
@@ -26,6 +25,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.example.datingapp'
 }
 
 dependencies {

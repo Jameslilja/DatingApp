@@ -10,7 +10,7 @@
         android:layout_weight="1"
         android:text="SKAPA EN ANVÄNDARE" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonGoBackSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

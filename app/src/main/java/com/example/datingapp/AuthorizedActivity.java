@@ -7,7 +7,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import androidx.appcompat.widget.AppCompatButton;
 
-public class AuthorizedActivity {
+public class AuthorizedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
