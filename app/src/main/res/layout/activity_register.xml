@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    tools:context=".Register">
+
+    <TextView
+        android:text="@string/skapa_ett_konto"
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailSignUp"
+            android:hint="@string/usernameORemail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordSignUp"
+            android:hint="@string/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarSignUp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:background="#FF5722"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:id="@+id/registerNow"
+        android:text="@string/klicka_f_r_att_logga_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
