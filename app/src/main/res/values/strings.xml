@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Dating app</string>
+    <string name="password">Lösenord..</string>
+    <string name="username">Användarnamn..</string>
+    <string name="register">Registrera dig här helt utan kostnad</string>
+    <string name="buttonLogIn">Logga in</string>
 </resources>
