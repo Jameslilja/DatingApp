@@ -27,6 +27,8 @@ public class   Register extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
+    boolean newUser = false;
+
     @Override
         public void onStart() {
             super.onStart();
@@ -48,6 +50,7 @@ public class   Register extends AppCompatActivity {
         buttonReg = findViewById(R.id.buttonSignUp);
         progressBar = findViewById(R.id.progressBarSignUp);
         textView = findViewById(R.id.registerNow); //logInNow i klippet?!
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +86,9 @@ public class   Register extends AppCompatActivity {
                                    if (task.isSuccessful()) {
                                         Toast.makeText(Register.this, "Konto skapat.",
                                                 Toast.LENGTH_SHORT).show();
+                                       Intent intent = new Intent(getApplicationContext(), NewUserFirstTimeLogin.class);
+                                       startActivity(intent);
+                                       finish();
                                    } else {
                                        // If sign in fails, display a message to the user.
                                        Toast.makeText(Register.this, "Authentication failed.",

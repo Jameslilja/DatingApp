@@ -7,6 +7,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +20,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(SplashScreen.this,Login.class);
                 startActivity(intent);
                 finish();

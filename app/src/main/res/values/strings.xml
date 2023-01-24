@@ -2,11 +2,16 @@
     <string name="app_name">YIKES</string>
     <string name="login">Logga in</string>
     <string name="password">Lösenord..</string>
-    <string name="usernameORemail">Användarnamn/Email?..</string>
+    <string name="email">E-post..</string>
     <string name="register">Registrera</string>
     <string name="klicka_f_r_att_logga_in">Klicka för att logga in</string>
     <string name="klicka_f_r_att_registrera_dig">Klicka för att registrera dig</string>
     <string name="logout">Logout</string>
     <string name="skapa_ett_konto">Skapa ett konto</string>
     <string name="fyll_i_informationen_nedan">Fyll i informationen nedan</string>
+    <string name="username">Användarnamn..</string>
+    <string name="firstName">Förnamn..</string>
+    <string name="lastName">Efternamn..</string>
+    <string name="description">Beskrivning..</string>
+    <string name="choose_qualifications">Välj kvalifikationer</string>
 </resources>

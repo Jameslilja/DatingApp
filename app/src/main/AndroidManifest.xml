@@ -13,20 +13,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.Light"
+        android:enableOnBackInvokedCallback="true"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".NewUserFirstTimeLogin"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"/>
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/Theme.Material3.Light">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter> </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Register"
             android:exported="false"
@@ -34,7 +41,7 @@
         <activity
             android:name=".Login"
             android:exported="true"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"/>
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
     </application>
 
 </manifest>

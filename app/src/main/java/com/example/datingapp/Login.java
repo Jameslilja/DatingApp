@@ -27,6 +27,8 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
+    boolean newUser = true;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -49,6 +51,7 @@ public class Login extends AppCompatActivity {
         buttonLogIn = findViewById(R.id.buttonLogIn);
         progressBar = findViewById(R.id.progressBarLogIn);
         textView = findViewById(R.id.logInNow); //registerNow i klippet?!
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +87,7 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "Inloggning genomförd", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    intent.putExtra("my_boolean_key", newUser);
                                     startActivity(intent);
                                     finish();
                                 } else {
