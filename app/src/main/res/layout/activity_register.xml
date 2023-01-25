@@ -7,6 +7,40 @@
     android:background="@drawable/bakgrund">
 
     <TextView
+        android:id="@+id/userText3"
+        android:layout_width="325dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="8dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:text="5 Kvalifikationer"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/userText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/userText2"
+        android:layout_width="325dp"
+        android:layout_height="73dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:text="Beskrivning"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck"
+        tools:layout_editor_absoluteY="375dp" />
+
+    <TextView
         android:id="@+id/nameText"
         android:layout_width="168dp"
         android:layout_height="49dp"
@@ -61,48 +95,28 @@
         android:id="@+id/registerButton"
         android:layout_width="159dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="220dp"
         android:backgroundTint="#FF5722"
         android:text="Registrera"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/passwordText"
-        android:layout_width="173dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="105dp"
-        android:layout_marginEnd="97dp"
-        android:layout_marginBottom="4dp"
-        android:ems="10"
-        android:hint="Lösenord"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/registerButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+        tools:layout_editor_absoluteY="463dp" />
 
     <TextView
         android:id="@+id/userText"
         android:layout_width="168dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:autofillHints=""
         android:ems="10"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:text="Användarnamn"
+        android:text="Stad"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/passwordText"
+        app:layout_constraintBottom_toTopOf="@+id/userText3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
