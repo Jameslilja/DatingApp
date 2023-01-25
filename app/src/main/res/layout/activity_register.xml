@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bakgrund">
 
-    <TextView
+    <EditText
         android:id="@+id/userText3"
         android:layout_width="325dp"
         android:layout_height="73dp"
@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
-    <TextView
+    <EditText
         android:id="@+id/userText2"
         android:layout_width="325dp"
         android:layout_height="73dp"
@@ -37,10 +37,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TextContrastCheck"
         tools:layout_editor_absoluteY="375dp" />
 
-    <TextView
+    <EditText
         android:id="@+id/nameText"
         android:layout_width="168dp"
         android:layout_height="49dp"
@@ -57,7 +57,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
-    <TextView
+    <EditText
         android:id="@+id/lastnameText"
         android:layout_width="168dp"
         android:layout_height="49dp"
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
-    <TextView
+    <EditText
         android:id="@+id/emailAdressText"
         android:layout_width="168dp"
         android:layout_height="49dp"
@@ -100,9 +100,10 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="463dp" />
+        tools:layout_editor_absoluteY="463dp"
+        tools:ignore="MissingConstraints" />
 
-    <TextView
+    <EditText
         android:id="@+id/userText"
         android:layout_width="168dp"
         android:layout_height="49dp"
