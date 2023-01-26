@@ -9,7 +9,7 @@
     tools:context=".NewUserFirstTimeLogin">
 
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextUsernameUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextFirstname" />
 
     <EditText
-        android:id="@+id/editTextFirstname"
+        android:id="@+id/editTextFirstnameUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -32,7 +32,7 @@
         />
 
     <EditText
-        android:id="@+id/EditTextLastname"
+        android:id="@+id/EditTextLastnameUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -54,7 +54,7 @@
         android:id="@+id/listViewSearchCity"/>
 
     <EditText
-        android:id="@+id/EditTextDescription"
+        android:id="@+id/EditTextDescriptionUpdate"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:ems="10"
@@ -65,7 +65,7 @@
         app:layout_constraintBottom_toTopOf="@+id/selectCard"/>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/selectCard"
+        android:id="@+id/selectCardUpdate"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:cardBackgroundColor="@color/white"
@@ -77,7 +77,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textViewQualifications"
+                android:id="@+id/textViewQualificationsUpdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/choose_qualifications"
@@ -98,7 +98,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Ändra lösenord"
+        android:id="@+id/buttonUpdatePrivateInfo"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/goToMainActivity"
-        android:id="@+id/buttonGoToMain"/>
+        android:id="@+id/buttonGoToMainUpdate"/>
 
 </LinearLayout>
