@@ -2,24 +2,30 @@ package com.example.datingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private Button signUp;
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar=findViewById(R.id.myToolbar);
+
+        setSupportActionBar(toolbar);
 
         AppCompatButton button = (AppCompatButton) findViewById(R.id.buttonLogIn);
-        signUp = (Button) findViewById(R.id.buttonSignUp);
+        AppCompatButton buttonSignUp = (AppCompatButton) findViewById(R.id.buttonSignUp);
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openRegisterActivity();
