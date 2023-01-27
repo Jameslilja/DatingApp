@@ -27,8 +27,6 @@ public class   Register extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
-    boolean newUser = false;
-
     @Override
         public void onStart() {
             super.onStart();
