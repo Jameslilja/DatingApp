@@ -7,6 +7,9 @@
     tools:context=".MainActivity">
 
 
+    <include
+        layout="@layout/appbar"/>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogIn"
         android:layout_width="215dp"
@@ -25,6 +28,7 @@
         app:layout_constraintTop_toBottomOf="@id/buttonSignUp"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints,TextContrastCheck,TouchTargetSizeCheck" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSignUp"
@@ -77,8 +81,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
-    <include
-        layout="@layout/appbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
