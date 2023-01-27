@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/james/AndroidStudioProjects/Datingapp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/james/AndroidStudioProjects/Datingapp/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/james/AndroidStudioProjects/Datingapp/app/src/main/res/layout/activity_splash_screen.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/james/AndroidStudioProjects/Datingapp/app/src/main/res/layout/appbar.xml" value="0.18659420289855072" />
       </map>
     </option>
   </component>
