@@ -21,6 +21,8 @@
     <string name="profileSettings">Profilinställningar</string>
     <string name="dialog_messageUpdatePassword">ALERT DIALOG MESSAGE TEST</string>
     <string name="dialog_titleUpdatePassword">ALERT DIALOG TITLE TEST</string>
+    <string name="change_password">Ändra lösenord</string>
+    <string name="response_test">Response</string>
 
     <string-array name="citiesInSwedenArray">
         <item> Alfta </item>

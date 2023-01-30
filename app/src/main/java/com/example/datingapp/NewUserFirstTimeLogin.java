@@ -1,19 +1,16 @@
 package com.example.datingapp;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,8 +24,10 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +43,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     boolean [] selectedQualifications;
     ArrayList<Integer> qualificationList = new ArrayList<>();
     String [] qualificationArray = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
+    ArrayList<String> selectedQualificationsToSend;
 
     //dessa används för searchView
     SearchView searchViewCity;
@@ -63,8 +63,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     //API TEST
     private TextView responseTV;
     private ProgressBar loadingPB;
-    ArrayList<String> adapterQualifications;
-    ArrayList<String> qualifications;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,11 +80,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         editTextLastname = findViewById(R.id.editTextLastname);
         editTextDescription = findViewById(R.id.editTextDescription);
 
-
-
-        //city finns längre ner men inte här, ändra postData till onClicken längre ner?
-
-
         //SKA ÄVEN SKICKA TILL BACKEND OCH DATABAS
         buttonGoToMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,32 +88,24 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-                System.out.println("******************");
-                System.out.println("******************");
-
-                System.out.println("FIREBASE USER ID" + user.getUid());
-                System.out.println("USERNAME: " + editTextUsername.getText().toString());
-                System.out.println("EMAIL: " + user.getEmail());
-                System.out.println("FIRST NAME: " + editTextFirstname.getText().toString());
-                System.out.println("LAST NAME: " + editTextLastname.getText().toString());
-                System.out.println("CITY: " + selectedCity);
-                System.out.println("DESCRIPTION: " + editTextDescription.getText().toString());
-                System.out.println("QUALIFICATIONS 1: " + qualifications);
-                System.out.println("QUALIFICATIONS 2: " + qualificationArray);
-                System.out.println("QUALIFICATIONS 3: " + qualificationList); //GER POSITIONEN I ARRAYEN
-
-                System.out.println("******************");
-                System.out.println("******************");
+                System.out.println("FIREBASE USER ID" + user.getUid()); //fungerar
+                System.out.println("USERNAME: " + editTextUsername.getText().toString()); //fungerar
+                System.out.println("EMAIL: " + user.getEmail()); //fungerar
+                System.out.println("FIRST NAME: " + editTextFirstname.getText().toString()); //fungerar
+                System.out.println("LAST NAME: " + editTextLastname.getText().toString()); //fungerar
+                System.out.println("CITY: " + selectedCity); //fungerar
+                System.out.println("DESCRIPTION: " + editTextDescription.getText().toString()); //fungerar
+                System.out.println("QUALIFICATIONS: " + selectedQualificationsToSend); //fungerar
 
                 //API TEST
                 postData(user.getUid(),
                         editTextUsername.getText().toString(), //Fungerar
-                        user.getEmail(), //fungerar
+                        user.getEmail(), //Fungerar
                         editTextFirstname.getText().toString(), //Fungerar
                         editTextLastname.getText().toString(), //Fungerar
                         selectedCity, //Fungerar
                         editTextDescription.getText().toString(), //Fungerar
-                        qualifications); //Fungerar ej
+                        String.valueOf(selectedQualificationsToSend)); //Fungerar
             }
 
         });
@@ -148,14 +133,12 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         searchViewCity.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 adapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 adapter.getFilter().filter(newText);
                 listViewCity.setVisibility(View.VISIBLE);
                 return false;
@@ -176,7 +159,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 closeKeyboard();
 
                 Toast.makeText(getApplicationContext(), selectedCity + " valt.", Toast.LENGTH_LONG).show();
-
             }
         });
 
@@ -216,8 +198,24 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         builder.setMultiChoiceItems(qualificationArray, selectedQualifications, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which, boolean b) {
+                selectedQualificationsToSend = new ArrayList<>();
                 if (b){
                     qualificationList.add(which);
+                    if (selectedQualifications[0]) {
+                        selectedQualificationsToSend.add(qualificationArray[0]);
+                    }
+                    if (selectedQualifications[1]) {
+                        selectedQualificationsToSend.add(qualificationArray[1]);
+                    }
+                    if (selectedQualifications[2]) {
+                        selectedQualificationsToSend.add(qualificationArray[2]);
+                    }
+                    if (selectedQualifications[3]) {
+                        selectedQualificationsToSend.add(qualificationArray[3]);
+                    }
+                    if (selectedQualifications[4]) {
+                        selectedQualificationsToSend.add(qualificationArray[4]);
+                    }
                 } else {
                     qualificationList.remove(which);
                 }
@@ -229,7 +227,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 //create string builder
                 StringBuilder stringBuilder = new StringBuilder();
                 for (int i = 0; i < qualificationList.size(); i++){
-
                     stringBuilder.append(qualificationArray[qualificationList.get(i)]);
 
                     //check condition
@@ -238,7 +235,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                         //then add a comma
                         stringBuilder.append(", ");
                     }
-
                     //setting selected qualifications to textView
                     textViewQualifications.setText(stringBuilder.toString());
                 }
@@ -263,7 +259,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         builder.show();
     }
 
-    private void postData(String user_uid, String username, String email, String firstname, String lastname, String city, String description, ArrayList<String> qualifications) {
+    private void postData(String user_uid, String username, String email, String firstname, String lastname, String city, String description, String qualifications) {
 
         // below line is for displaying our progress bar.
         loadingPB.setVisibility(View.VISIBLE);
@@ -316,5 +312,4 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
             }
         });
     }
-
 }

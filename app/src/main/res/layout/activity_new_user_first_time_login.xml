@@ -28,7 +28,8 @@
         android:hint="@string/firstName"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/EditTextLastname"/>
+        app:layout_constraintBottom_toTopOf="@+id/EditTextLastname"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextLastname"
@@ -38,7 +39,9 @@
         android:hint="@string/lastName"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/EditTextDescription"/>
+        app:layout_constraintBottom_toTopOf="@+id/EditTextDescription"
+        tools:ignore="VisualLintTextFieldSize"
+        android:autofillHints="" />
 
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
@@ -107,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center_horizontal"
-        android:text="Response"
+        android:text="@string/response_test"
         android:textAlignment="center"
         android:textSize="15sp" />
 

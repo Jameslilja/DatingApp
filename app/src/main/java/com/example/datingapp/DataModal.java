@@ -1,6 +1,5 @@
 package com.example.datingapp;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DataModal {
@@ -12,9 +11,9 @@ public class DataModal {
     private String lastname;
     private String city;
     private String description;
-    private ArrayList<String> qualifications;
+    private String qualifications;
 
-    public DataModal(String userUid, String username, String email, String firstname, String lastname, String city, String description, ArrayList<String> qualifications) {
+    public DataModal(String userUid, String username, String email, String firstname, String lastname, String city, String description, String qualifications) {
         this.userUid = userUid;
         this.username = username;
         this.email = email;
@@ -81,12 +80,12 @@ public class DataModal {
         this.description = description;
     }
 
-    public ArrayList<String> getQualifications() {
+    public String getQualifications() {
         return qualifications;
     }
 
     public void setQualifications(ArrayList<String> qualifications) {
-        this.qualifications = qualifications;
+        this.qualifications = String.valueOf(qualifications);
     }
 
 }

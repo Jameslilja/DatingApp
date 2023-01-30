@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".NewUserFirstTimeLogin">
+    tools:context=".UpdateProfile">
 
     <EditText
         android:id="@+id/editTextUsernameUpdate"
@@ -29,7 +29,7 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/EditTextLastname"
-        />
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/EditTextLastnameUpdate"
@@ -39,7 +39,8 @@
         android:hint="@string/lastName"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/EditTextDescription" />
+        app:layout_constraintBottom_toTopOf="@+id/EditTextDescription"
+        android:importantForAutofill="no" />
 
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
@@ -98,7 +99,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ändra lösenord"
+        android:text="@string/change_password"
         android:id="@+id/buttonUpdatePrivateInfo"/>
 
     <Button

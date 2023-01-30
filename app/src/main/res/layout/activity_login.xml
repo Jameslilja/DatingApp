@@ -26,7 +26,9 @@
         android:id="@+id/emailLogIn"
         android:hint="@string/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+            android:minWidth="48dp"
+        android:layout_height="wrap_content"
+            android:minHeight="48dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -37,7 +39,9 @@
             android:id="@+id/passwordLogIn"
             android:hint="@string/password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:minWidth="48dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
@@ -50,7 +54,7 @@
         android:id="@+id/buttonLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logga in"
+        android:text="@string/login"
         android:textColor="@color/white"
         android:background="#FF5722"
         tools:ignore="TextContrastCheck" />
