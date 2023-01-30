@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".TestEmpty">
+    android:padding="16dp"
+    tools:context=".MainActivity">
 
+    <!-- text view to display selected items-->
+    <TextView
+        android:id="@+id/textViewSelectQualificationsSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:drawable/editbox_background"
+        android:drawablePadding="16dp"
+        android:hint="@string/choose_qualifications"
+        android:padding="12dp"
+        android:textColorHint="#757575"
+        app:drawableRightCompat="@android:drawable/arrow_down_float" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/test"
+        tools:ignore="SpeakableTextPresentCheck" />
 </LinearLayout>

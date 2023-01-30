@@ -69,4 +69,13 @@
         android:text="@string/klicka_f_r_att_registrera_dig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/buttonTestStuff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test"
+        android:textColor="@color/white"
+        android:background="#FF5722"
+        tools:ignore="TextContrastCheck" />
 </LinearLayout>

@@ -20,11 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
-    TextInputEditText editTextEmail, editTextPassword;
+    TextInputEditText editTextEmail;
+    TextInputEditText editTextPassword;
     Button buttonLogIn;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
+    Button buttonTestStuff;
 
     boolean newUser = true;
 
@@ -49,7 +51,17 @@ public class Login extends AppCompatActivity {
         editTextPassword = findViewById(R.id.passwordLogIn);
         buttonLogIn = findViewById(R.id.buttonLogIn);
         progressBar = findViewById(R.id.progressBarLogIn);
-        textView = findViewById(R.id.logInNow); //registerNow i klippet?!
+        textView = findViewById(R.id.logInNow);
+        buttonTestStuff = findViewById(R.id.buttonTestStuff);
+
+        buttonTestStuff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TestEmpty.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

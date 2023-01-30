@@ -25,6 +25,7 @@
     <string name="response_test">Response</string>
     <string name="choose_preference">Välj preferenser</string>
     <string name="delete_account">Ta bort konto</string>
+    <string name="test">TEST</string>
 
     <string-array name="citiesInSwedenArray">
         <item> Alfta </item>
