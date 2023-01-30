@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -14,10 +15,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,7 +37,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UpdateProfile extends AppCompatActivity {
-    // qualifications
+    // används för att kunna välja kvalifikationer
     MaterialCardView selectCardUpdate;
     TextView textViewQualificationsUpdate;
     boolean [] selectedQualificationsUpdate;
@@ -48,18 +53,21 @@ public class UpdateProfile extends AppCompatActivity {
     String [] preferenceArray = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
     ArrayList<String> selectedPreferencesToSend;
 
-    // search view
+    //dessa används för searchView
     SearchView searchViewCityUpdate;
     ListView listViewCityUpdate;
     ArrayList<String> arrayListCitiesInSwedenUpdate;
     ArrayAdapter adapterUpdate;
     String selectedCityUpdate;
 
-    //updatePasswordOrDelete, work in progress
+    //update password
     AlertDialog.Builder builder;
     Button buttonUpDatePrivateInfo;
 
-    // api post, work in progress
+    //delete account
+    Button buttonDeleteAccount;
+
+    //API TEST
     private TextView responseTV;
     private ProgressBar loadingPB;
     EditText editTextUsername;
@@ -68,6 +76,7 @@ public class UpdateProfile extends AppCompatActivity {
     EditText editTextDescription;
     FirebaseUser user;
 
+    //övriga
     Button buttonGoToMainUpdate;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,17 +92,25 @@ public class UpdateProfile extends AppCompatActivity {
         editTextLastname = findViewById(R.id.editTextLastnameUpdate);
         editTextDescription = findViewById(R.id.editTextDescriptionUpdate);
 
-
         buttonGoToMainUpdate = findViewById(R.id.buttonGoToMainUpdate);
 
         buttonUpDatePrivateInfo = findViewById(R.id.buttonUpdatePrivateInfo);
 
+        buttonDeleteAccount = findViewById(R.id.buttonDeleteAccount);
+
+        buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDeleteAccountDialog();
+            }
+        });
+
+        //UPDATE
         buttonUpDatePrivateInfo.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), TestEmpty.class);
             startActivity(intent);
             finish();
         });
-
 
         buttonGoToMainUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +119,7 @@ public class UpdateProfile extends AppCompatActivity {
             startActivity(intent);
             finish();
 
+            // bara för att visa att det som skickas är korrekt
             System.out.println("FIREBASE USER ID" + user.getUid()); //fungerar
             System.out.println("USERNAME: " + editTextUsername.getText().toString()); //fungerar
             System.out.println("EMAIL: " + user.getEmail()); //fungerar
@@ -216,7 +234,6 @@ public class UpdateProfile extends AppCompatActivity {
                 alert.show();
             }
         });
-
     }
 
     private void closeKeyboard()
@@ -414,4 +431,47 @@ public class UpdateProfile extends AppCompatActivity {
         });
     }
 
+    // tar bort kontot från firebase men inte från databasen, där det ännu inte existerar
+    private void showDeleteAccountDialog() {
+        builder = new AlertDialog.Builder(this);
+
+        builder.setMessage("Vill du verkligen radera kontot?")
+                .setCancelable(false)
+                .setPositiveButton("Radera mitt konto!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        user.delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getApplicationContext(), "Konto borttaget",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }}
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getApplicationContext(), "Konto borttaget",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                        //Login eller Register istället för Splash screen?
+                        Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
+                        startActivity(intent);
+                        finish();
+
+                        //inte säker på om detta behövs
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }

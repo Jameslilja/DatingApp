@@ -6,8 +6,8 @@ public class DataModal {
 
     private String userUid;
     private String username;
-    private String email;
-    private String firstname;
+    private String email; // was name
+    private String firstname; // was job
     private String lastname;
     private String city;
     private String description;
