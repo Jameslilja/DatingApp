@@ -51,15 +51,12 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     String [] preferenceArray = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
     ArrayList<String> selectedPreferencesToSend;
 
-    //dessa används för searchView
+    // search view
     SearchView searchViewCity;
     ListView listViewCity;
     ArrayList<String> arrayListCitiesInSweden;
     ArrayAdapter adapter;
     String selectedCity;
-
-    //övriga
-    Button buttonGoToMain;
 
     //API TEST
     private TextView responseTV;
@@ -69,6 +66,8 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     EditText editTextLastname;
     EditText editTextDescription;
     FirebaseUser user;
+
+    Button buttonGoToMain;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -32,7 +32,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UpdateProfile extends AppCompatActivity {
-    // används för att kunna välja kvalifikationer
+    // qualifications
     MaterialCardView selectCardUpdate;
     TextView textViewQualificationsUpdate;
     boolean [] selectedQualificationsUpdate;
@@ -48,18 +48,18 @@ public class UpdateProfile extends AppCompatActivity {
     String [] preferenceArray = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
     ArrayList<String> selectedPreferencesToSend;
 
-    //dessa används för searchView
+    // search view
     SearchView searchViewCityUpdate;
     ListView listViewCityUpdate;
     ArrayList<String> arrayListCitiesInSwedenUpdate;
     ArrayAdapter adapterUpdate;
     String selectedCityUpdate;
 
-    //updatePasswordOrDelete
+    //updatePasswordOrDelete, work in progress
     AlertDialog.Builder builder;
     Button buttonUpDatePrivateInfo;
 
-    //API TEST
+    // api post, work in progress
     private TextView responseTV;
     private ProgressBar loadingPB;
     EditText editTextUsername;
@@ -68,7 +68,6 @@ public class UpdateProfile extends AppCompatActivity {
     EditText editTextDescription;
     FirebaseUser user;
 
-    //övriga
     Button buttonGoToMainUpdate;
 
     protected void onCreate(Bundle savedInstanceState) {
