@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,18 +19,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class UpdateProfile extends AppCompatActivity {
-    //selectCard, textViewQualifications, selectedQualifications, qualificationsList och qualificationArray
     // används för att kunna välja kvalifikationer
     MaterialCardView selectCardUpdate;
     TextView textViewQualificationsUpdate;
     boolean [] selectedQualificationsUpdate;
     ArrayList<Integer> qualificationListUpdate = new ArrayList<>();
     String [] qualificationArrayUpdate = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
+    ArrayList<String> selectedQualificationsToSend;
+
+    // preferences
+    MaterialCardView selectCardPreferences;
+    TextView textViewPreferences;
+    boolean [] selectedPreferences;
+    ArrayList<Integer> preferenceList = new ArrayList<>();
+    String [] preferenceArray = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
+    ArrayList<String> selectedPreferencesToSend;
 
     //dessa används för searchView
     SearchView searchViewCityUpdate;
@@ -41,12 +59,31 @@ public class UpdateProfile extends AppCompatActivity {
     AlertDialog.Builder builder;
     Button buttonUpDatePrivateInfo;
 
+    //API TEST
+    private TextView responseTV;
+    private ProgressBar loadingPB;
+    EditText editTextUsername;
+    EditText editTextFirstname;
+    EditText editTextLastname;
+    EditText editTextDescription;
+    FirebaseUser user;
+
     //övriga
     Button buttonGoToMainUpdate;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
+
+        //API TEST
+        responseTV = findViewById(R.id.idTVResponse);
+        loadingPB = findViewById(R.id.idLoadingPB);
+        editTextUsername = findViewById(R.id.editTextUsernameUpdate);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        editTextFirstname = findViewById(R.id.editTextFirstnameUpdate);
+        editTextLastname = findViewById(R.id.editTextLastnameUpdate);
+        editTextDescription = findViewById(R.id.editTextDescriptionUpdate);
+
 
         buttonGoToMainUpdate = findViewById(R.id.buttonGoToMainUpdate);
 
@@ -59,10 +96,34 @@ public class UpdateProfile extends AppCompatActivity {
         });
 
 
-        buttonGoToMainUpdate.setOnClickListener(view -> {
+        buttonGoToMainUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+                    public void onClick(View View) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
+
+            System.out.println("FIREBASE USER ID" + user.getUid()); //fungerar
+            System.out.println("USERNAME: " + editTextUsername.getText().toString()); //fungerar
+            System.out.println("EMAIL: " + user.getEmail()); //fungerar
+            System.out.println("FIRST NAME: " + editTextFirstname.getText().toString()); //fungerar
+            System.out.println("LAST NAME: " + editTextLastname.getText().toString()); //fungerar
+            System.out.println("CITY: " + selectedCityUpdate); //fungerar
+            System.out.println("DESCRIPTION: " + editTextDescription.getText().toString()); //fungerar
+            System.out.println("QUALIFICATIONS: " + selectedQualificationsToSend); //fungerar
+            System.out.println("PREFERENCES: " + selectedPreferencesToSend); //fungerar
+
+            //API TEST
+            postData(user.getUid(),
+                    editTextUsername.getText().toString(), //
+                    user.getEmail(), //
+                    editTextFirstname.getText().toString(), //
+                    editTextLastname.getText().toString(), //
+                    selectedCityUpdate, //
+                    editTextDescription.getText().toString(), //
+                    String.valueOf(selectedQualificationsToSend),
+                    String.valueOf(selectedPreferencesToSend)); //
+        }
         });
 
         //qualifications
@@ -70,8 +131,16 @@ public class UpdateProfile extends AppCompatActivity {
         textViewQualificationsUpdate = findViewById(R.id.textViewQualificationsUpdate);
         selectedQualificationsUpdate = new boolean[qualificationArrayUpdate.length];
 
-        //qualifications
         selectCardUpdate.setOnClickListener(view -> showQualificationsDialog());
+
+        //preferences
+        selectCardPreferences = findViewById(R.id.selectCardPreferencesUpdate);
+        textViewPreferences = findViewById(R.id.textViewPreferencesUpdate);
+        selectedPreferences = new boolean[preferenceArray.length];
+
+        selectCardPreferences.setOnClickListener(view -> {
+            showPreferencesUpdateDialog();
+        });
 
         //searchView
         searchViewCityUpdate = findViewById(R.id.searchCity);
@@ -183,8 +252,24 @@ public class UpdateProfile extends AppCompatActivity {
         builder.setCancelable(false);
 
         builder.setMultiChoiceItems(qualificationArrayUpdate, selectedQualificationsUpdate, (dialogInterface, which, b) -> {
+            selectedQualificationsToSend = new ArrayList<>();
             if (b){
                 qualificationListUpdate.add(which);
+                if (selectedQualificationsUpdate[0]) {
+                    selectedQualificationsToSend.add(qualificationArrayUpdate[0]);
+                }
+                if (selectedQualificationsUpdate[1]) {
+                    selectedQualificationsToSend.add(qualificationArrayUpdate[1]);
+                }
+                if (selectedQualificationsUpdate[2]) {
+                    selectedQualificationsToSend.add(qualificationArrayUpdate[2]);
+                }
+                if (selectedQualificationsUpdate[3]) {
+                    selectedQualificationsToSend.add(qualificationArrayUpdate[3]);
+                }
+                if (selectedQualificationsUpdate[4]) {
+                    selectedQualificationsToSend.add(qualificationArrayUpdate[4]);
+                }
             } else {
                 qualificationListUpdate.remove(which);
             }
@@ -218,5 +303,116 @@ public class UpdateProfile extends AppCompatActivity {
         builder.show();
     }
 
+    private void showPreferencesUpdateDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProfile.this);
+
+        builder.setTitle("Välj preferenser");
+        builder.setCancelable(false);
+
+        builder.setMultiChoiceItems(preferenceArray, selectedPreferences, (dialogInterface, which, b) -> {
+            selectedPreferencesToSend = new ArrayList<>();
+            if (b){
+                preferenceList.add(which);
+                if (selectedPreferences[0]) {
+                    selectedPreferencesToSend.add(preferenceArray[0]);
+                }
+                if (selectedPreferences[1]) {
+                    selectedPreferencesToSend.add(preferenceArray[1]);
+                }
+                if (selectedPreferences[2]) {
+                    selectedPreferencesToSend.add(preferenceArray[2]);
+                }
+                if (selectedPreferences[3]) {
+                    selectedPreferencesToSend.add(preferenceArray[3]);
+                }
+                if (selectedPreferences[4]) {
+                    selectedPreferencesToSend.add(preferenceArray[4]);
+                }
+            } else {
+                preferenceList.remove(which);
+            }
+        }).setPositiveButton("Välj", (dialog, which) -> {
+
+            //create string builder
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < preferenceList.size(); i++){
+
+                stringBuilder.append(preferenceArray[preferenceList.get(i)]);
+
+                //check condition
+                if (i != preferenceList.size() - 1){
+                    //when i is not equal to qualification list size
+                    //then add a comma
+                    stringBuilder.append(", ");
+                }
+
+                //setting selected qualifications to textView
+                textViewPreferences.setText(stringBuilder.toString());
+            }
+        }).setNegativeButton("Avbryt", (dialog, which) -> dialog.dismiss()).setNeutralButton("Avmarkera alla", (dialog, which) -> {
+            //clearing all selected qualifications on click
+            for (int i = 0; i < selectedPreferences.length; i ++){
+                selectedPreferences[i] = false;
+
+                preferenceList.clear();
+                textViewPreferences.setText("");
+            }
+        });
+        builder.show();
+    }
+
+    private void postData(String user_uid, String username, String email, String firstname, String lastname, String city, String description, String qualifications, String preferences) {
+
+        // below line is for displaying our progress bar.
+        loadingPB.setVisibility(View.VISIBLE);
+
+        // on below line we are creating a retrofit
+        // builder and passing our base url
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://reqres.in/api/")
+                // as we are sending data in json format so
+                // we have to add Gson converter factory
+                .addConverterFactory(GsonConverterFactory.create())
+                // at last we are building our retrofit builder.
+                .build();
+        // below line is to create an instance for our retrofit api class.
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        // passing data from our text fields to our modal class.
+        DataModal modal = new DataModal(user_uid, username, email, firstname, lastname, city, description, qualifications, preferences);
+
+        // calling a method to create a post and passing our modal class.
+        Call<DataModal> call = retrofitAPI.createPost(modal);
+
+        // on below line we are executing our method.
+        call.enqueue(new Callback<DataModal>() {
+            @Override
+            public void onResponse(Call<DataModal> call, Response<DataModal> response) {
+                // this method is called when we get response from our api.
+                Toast.makeText(UpdateProfile.this, "Data added to API", Toast.LENGTH_SHORT).show();
+
+                // below line is for hiding our progress bar.
+                loadingPB.setVisibility(View.GONE);
+
+                // we are getting response from our body
+                // and passing it to our modal class.
+                DataModal responseFromAPI = response.body();
+
+                // on below line we are getting our data from modal class and adding it to our string.
+                String responseString = "Response Code : " + response.code() + "\nUser_uid : " + responseFromAPI.getUserUid() + response.code() + "\nUsername : " + responseFromAPI.getUsername() + "\n" + "Email : " + responseFromAPI.getEmail() + "\n" + "First name : " + responseFromAPI.getFirstname() + "\n" + "Last name : " + responseFromAPI.getCity() + "\n" + "Description : " + responseFromAPI.getDescription()  + "\n" + "Qualifications : " + responseFromAPI.getQualifications() + "\n" + "Preferences : " + responseFromAPI.getPreferences();
+
+                // below line we are setting our
+                // string to our text view.
+                responseTV.setText(responseString);
+            }
+
+            @Override
+            public void onFailure(Call<DataModal> call, Throwable t) {
+                // setting text to our text view when
+                // we get error response from API.
+                responseTV.setText("Error found is : " + t.getMessage());
+            }
+        });
+    }
 
 }

@@ -23,6 +23,7 @@
     <string name="dialog_titleUpdatePassword">ALERT DIALOG TITLE TEST</string>
     <string name="change_password">Ändra lösenord</string>
     <string name="response_test">Response</string>
+    <string name="choose_preference">Välj preferenser</string>
 
     <string-array name="citiesInSwedenArray">
         <item> Alfta </item>

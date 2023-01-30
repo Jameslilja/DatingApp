@@ -12,8 +12,9 @@ public class DataModal {
     private String city;
     private String description;
     private String qualifications;
+    private String preferences;
 
-    public DataModal(String userUid, String username, String email, String firstname, String lastname, String city, String description, String qualifications) {
+    public DataModal(String userUid, String username, String email, String firstname, String lastname, String city, String description, String qualifications, String preferences) {
         this.userUid = userUid;
         this.username = username;
         this.email = email;
@@ -22,6 +23,7 @@ public class DataModal {
         this.city = city;
         this.description = description;
         this.qualifications = qualifications;
+        this.preferences = preferences;
     }
 
     public String getUserUid() {
@@ -86,6 +88,14 @@ public class DataModal {
 
     public void setQualifications(ArrayList<String> qualifications) {
         this.qualifications = String.valueOf(qualifications);
+    }
+
+    public String getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(ArrayList<String> preferences) {
+        this.preferences = String.valueOf(preferences);
     }
 
 }

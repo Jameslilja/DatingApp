@@ -24,10 +24,9 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.lang.reflect.Array;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,14 +35,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewUserFirstTimeLogin extends AppCompatActivity {
-    //selectCard, textViewQualifications, selectedQualifications, qualificationsList och qualificationArray
-    // används för att kunna välja kvalifikationer
+    // qualifications
     MaterialCardView selectCard;
     TextView textViewQualifications;
     boolean [] selectedQualifications;
     ArrayList<Integer> qualificationList = new ArrayList<>();
     String [] qualificationArray = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
     ArrayList<String> selectedQualificationsToSend;
+
+    // preferences
+    MaterialCardView selectCardPreferences;
+    TextView textViewPreferences;
+    boolean [] selectedPreferences;
+    ArrayList<Integer> preferenceList = new ArrayList<>();
+    String [] preferenceArray = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
+    ArrayList<String> selectedPreferencesToSend;
 
     //dessa används för searchView
     SearchView searchViewCity;
@@ -54,25 +60,25 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
 
     //övriga
     Button buttonGoToMain;
+
+    //API TEST
+    private TextView responseTV;
+    private ProgressBar loadingPB;
     EditText editTextUsername;
     EditText editTextFirstname;
     EditText editTextLastname;
     EditText editTextDescription;
     FirebaseUser user;
 
-    //API TEST
-    private TextView responseTV;
-    private ProgressBar loadingPB;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user_first_time_login);
 
+        buttonGoToMain = findViewById(R.id.buttonGoToMain);
+
         //API TEST
         responseTV = findViewById(R.id.idTVResponse);
         loadingPB = findViewById(R.id.idLoadingPB);
-
-        buttonGoToMain = findViewById(R.id.buttonGoToMain);
 
         editTextUsername = findViewById(R.id.editTextUsername);
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -96,6 +102,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 System.out.println("CITY: " + selectedCity); //fungerar
                 System.out.println("DESCRIPTION: " + editTextDescription.getText().toString()); //fungerar
                 System.out.println("QUALIFICATIONS: " + selectedQualificationsToSend); //fungerar
+                System.out.println("PREFERENCES: " + selectedPreferencesToSend); //fungerar
 
                 //API TEST
                 postData(user.getUid(),
@@ -105,7 +112,8 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                         editTextLastname.getText().toString(), //Fungerar
                         selectedCity, //Fungerar
                         editTextDescription.getText().toString(), //Fungerar
-                        String.valueOf(selectedQualificationsToSend)); //Fungerar
+                        String.valueOf(selectedQualificationsToSend),
+                        String.valueOf(selectedPreferencesToSend)); //Fungerar
             }
 
         });
@@ -115,11 +123,20 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         textViewQualifications = findViewById(R.id.textViewQualifications);
         selectedQualifications = new boolean[qualificationArray.length];
 
-        //qualifications
         selectCard.setOnClickListener(view -> {
 
             showQualificationsDialog();
         });
+
+        //preferences
+        selectCardPreferences = findViewById(R.id.selectCardPreferences);
+        textViewPreferences = findViewById(R.id.textViewPreferences);
+        selectedPreferences = new boolean[preferenceArray.length];
+
+        selectCardPreferences.setOnClickListener(view -> {
+            showPreferencesDialog();
+        });
+
 
         //searchView
         searchViewCity = findViewById(R.id.searchCity);
@@ -164,31 +181,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
 
     }
 
-    private void closeKeyboard()
-    {
-        // this will give us the view
-        // which is currently focus
-        // in this layout
-        View view = this.getCurrentFocus();
-
-        // if nothing is currently
-        // focus then this will protect
-        // the app from crash
-        if (view != null) {
-
-            // now assign the system
-            // service to InputMethodManager
-            InputMethodManager manager
-                    = (InputMethodManager)
-                    getSystemService(
-                            Context.INPUT_METHOD_SERVICE);
-            manager
-                    .hideSoftInputFromWindow(
-                            view.getWindowToken(), 0);
-        }
-    }
-
-    //qualifications
     private void showQualificationsDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(NewUserFirstTimeLogin.this);
 
@@ -259,7 +251,77 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         builder.show();
     }
 
-    private void postData(String user_uid, String username, String email, String firstname, String lastname, String city, String description, String qualifications) {
+    private void showPreferencesDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewUserFirstTimeLogin.this);
+
+        builder.setTitle("Välj preferenser");
+        builder.setCancelable(false);
+
+        builder.setMultiChoiceItems(preferenceArray, selectedPreferences, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which, boolean b) {
+                selectedPreferencesToSend = new ArrayList<>();
+                if (b){
+                    preferenceList.add(which);
+                    if (selectedPreferences[0]) {
+                        selectedPreferencesToSend.add(preferenceArray[0]);
+                    }
+                    if (selectedPreferences[1]) {
+                        selectedPreferencesToSend.add(preferenceArray[1]);
+                    }
+                    if (selectedPreferences[2]) {
+                        selectedPreferencesToSend.add(preferenceArray[2]);
+                    }
+                    if (selectedPreferences[3]) {
+                        selectedPreferencesToSend.add(preferenceArray[3]);
+                    }
+                    if (selectedPreferences[4]) {
+                        selectedPreferencesToSend.add(preferenceArray[4]);
+                    }
+                } else {
+                    preferenceList.remove(which);
+                }
+            }
+        }).setPositiveButton("Välj", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //create string builder
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < preferenceList.size(); i++){
+                    stringBuilder.append(preferenceArray[preferenceList.get(i)]);
+
+                    //check condition
+                    if (i != preferenceList.size() - 1){
+                        //when i is not equal to qualification list size
+                        //then add a comma
+                        stringBuilder.append(", ");
+                    }
+                    //setting selected qualifications to textView
+                    textViewPreferences.setText(stringBuilder.toString());
+                }
+            }
+        }).setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).setNeutralButton("Avmarkera alla", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //clearing all selected qualifications on click
+                for (int i = 0; i < selectedPreferences.length; i ++){
+                    selectedPreferences[i] = false;
+
+                    preferenceList.clear();
+                    textViewPreferences.setText("");
+                }
+            }
+        });
+        builder.show();
+    }
+
+    private void postData(String user_uid, String username, String email, String firstname, String lastname, String city, String description, String qualifications, String preferences) {
 
         // below line is for displaying our progress bar.
         loadingPB.setVisibility(View.VISIBLE);
@@ -277,7 +339,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
 
         // passing data from our text fields to our modal class.
-        DataModal modal = new DataModal(user_uid, username, email, firstname, lastname, city, description, qualifications);
+        DataModal modal = new DataModal(user_uid, username, email, firstname, lastname, city, description, qualifications, preferences);
 
         // calling a method to create a post and passing our modal class.
         Call<DataModal> call = retrofitAPI.createPost(modal);
@@ -297,7 +359,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 DataModal responseFromAPI = response.body();
 
                 // on below line we are getting our data from modal class and adding it to our string.
-                String responseString = "Response Code : " + response.code() + "\nUser_uid : " + responseFromAPI.getUserUid() + response.code() + "\nUsername : " + responseFromAPI.getUsername() + "\n" + "Email : " + responseFromAPI.getEmail() + "\n" + "First name : " + responseFromAPI.getFirstname() + "\n" + "Last name : " + responseFromAPI.getCity() + "\n" + "Description : " + responseFromAPI.getDescription()  + "\n" + "Qualifications : " + responseFromAPI.getQualifications();
+                String responseString = "Response Code : " + response.code() + "\nUser_uid : " + responseFromAPI.getUserUid() + response.code() + "\nUsername : " + responseFromAPI.getUsername() + "\n" + "Email : " + responseFromAPI.getEmail() + "\n" + "First name : " + responseFromAPI.getFirstname() + "\n" + "Last name : " + responseFromAPI.getCity() + "\n" + "Description : " + responseFromAPI.getDescription()  + "\n" + "Qualifications : " + responseFromAPI.getQualifications() + "\n" + "Preferences : " + responseFromAPI.getPreferences();
 
                 // below line we are setting our
                 // string to our text view.
@@ -311,5 +373,29 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 responseTV.setText("Error found is : " + t.getMessage());
             }
         });
+    }
+
+    private void closeKeyboard()
+    {
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        View view = this.getCurrentFocus();
+
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
+
+            // now assign the system
+            // service to InputMethodManager
+            InputMethodManager manager
+                    = (InputMethodManager)
+                    getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+            manager
+                    .hideSoftInputFromWindow(
+                            view.getWindowToken(), 0);
+        }
     }
 }
