@@ -47,7 +47,7 @@ public class   Register extends AppCompatActivity {
         editTextPassword = findViewById(R.id.passwordSignUp);
         buttonReg = findViewById(R.id.buttonSignUp);
         progressBar = findViewById(R.id.progressBarSignUp);
-        textView = findViewById(R.id.registerNow); //logInNow i klippet?!
+        textView = findViewById(R.id.logInNow);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

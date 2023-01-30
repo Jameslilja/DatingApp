@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
         editTextPassword = findViewById(R.id.passwordLogIn);
         buttonLogIn = findViewById(R.id.buttonLogIn);
         progressBar = findViewById(R.id.progressBarLogIn);
-        textView = findViewById(R.id.logInNow);
+        textView = findViewById(R.id.registerNow);
         buttonTestStuff = findViewById(R.id.buttonTestStuff);
 
         buttonTestStuff.setOnClickListener(new View.OnClickListener() {

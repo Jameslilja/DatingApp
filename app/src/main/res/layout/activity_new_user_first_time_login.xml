@@ -18,7 +18,8 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:textColorHint="#8D6E63"
-        app:layout_constraintBottom_toTopOf="@+id/editTextFirstname"/>
+        app:layout_constraintBottom_toTopOf="@+id/editTextFirstname"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/editTextFirstname"
@@ -29,7 +30,8 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/EditTextLastname"
-        android:autofillHints="" />
+        android:autofillHints=""
+        tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/editTextLastname"
@@ -64,7 +66,8 @@
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:textColorHint="#8D6E63"
-        app:layout_constraintBottom_toTopOf="@+id/selectCard"/>
+        app:layout_constraintBottom_toTopOf="@+id/selectCard"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/selectCard"

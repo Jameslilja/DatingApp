@@ -15,7 +15,6 @@
         android:id="@+id/textViewSelectQualificationsSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:background="@android:drawable/editbox_background"
         android:drawablePadding="16dp"
         android:hint="@string/choose_qualifications"
@@ -26,7 +25,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="@string/test"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/buttonGoBackFromTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_go_back"/>
 </LinearLayout>

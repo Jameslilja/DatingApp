@@ -302,7 +302,13 @@ public class UpdateProfile extends AppCompatActivity {
                 //setting selected qualifications to textView
                 textViewQualificationsUpdate.setText(stringBuilder.toString());
             }
-        }).setNegativeButton("Avbryt", (dialog, which) -> dialog.dismiss()).setNeutralButton("Avmarkera alla", (dialog, which) -> {
+        }).setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedQualificationsToSend.clear();
+                dialog.dismiss();
+            }
+            }).setNeutralButton("Avmarkera alla", (dialog, which) -> {
             //clearing all selected qualifications on click
             for (int i = 0; i < selectedQualificationsUpdate.length; i ++){
                 selectedQualificationsUpdate[i] = false;
@@ -360,7 +366,13 @@ public class UpdateProfile extends AppCompatActivity {
                 //setting selected qualifications to textView
                 textViewPreferences.setText(stringBuilder.toString());
             }
-        }).setNegativeButton("Avbryt", (dialog, which) -> dialog.dismiss()).setNeutralButton("Avmarkera alla", (dialog, which) -> {
+        }).setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedPreferencesToSend.clear();
+                dialog.dismiss();
+            }
+        }).setNeutralButton("Avmarkera alla", (dialog, which) -> {
             //clearing all selected qualifications on click
             for (int i = 0; i < selectedPreferences.length; i ++){
                 selectedPreferences[i] = false;

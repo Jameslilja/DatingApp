@@ -234,6 +234,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         }).setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                selectedQualificationsToSend.clear();
                 dialog.dismiss();
             }
         }).setNeutralButton("Avmarkera alla", new DialogInterface.OnClickListener() {
@@ -304,6 +305,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         }).setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                selectedPreferencesToSend.clear();
                 dialog.dismiss();
             }
         }).setNeutralButton("Avmarkera alla", new DialogInterface.OnClickListener() {
