@@ -4,4 +4,6 @@
     <string name="username">Användarnamn..</string>
     <string name="register">Registrera dig här helt utan kostnad</string>
     <string name="buttonLogIn">Logga in</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="send">Send</string>
 </resources>
