@@ -18,8 +18,7 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:textColorHint="#8D6E63"
-        app:layout_constraintBottom_toTopOf="@+id/editTextFirstname"
-        tools:ignore="VisualLintTextFieldSize" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextFirstname" />
 
     <EditText
         android:id="@+id/editTextFirstnameUpdate"
@@ -30,8 +29,7 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/EditTextLastname"
-        android:importantForAutofill="no"
-        tools:ignore="VisualLintTextFieldSize" />
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/editTextLastnameUpdate"
@@ -42,8 +40,18 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/EditTextDescription"
-        android:importantForAutofill="no"
-        tools:ignore="VisualLintTextFieldSize" />
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/editTextGenderUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/gender"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        tools:ignore="VisualLintTextFieldSize"
+        android:autofillHints="" />
 
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
@@ -66,8 +74,7 @@
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:textColorHint="#8D6E63"
-        app:layout_constraintBottom_toTopOf="@+id/selectCard"
-        tools:ignore="VisualLintTextFieldSize" />
+        app:layout_constraintBottom_toTopOf="@+id/selectCard"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/selectCardUpdate"

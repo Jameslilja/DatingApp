@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         if(user == null){
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
-            finish();
         } else {
             textView.setText(user.getEmail());
         }
@@ -46,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
-                finish();
-
             }
         });
 
@@ -56,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), UpdateProfile.class);
                 startActivity(intent);
-                finish();
             }
         });
     }

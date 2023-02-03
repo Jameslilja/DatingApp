@@ -27,9 +27,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="@string/not_the_app_name"
+        android:text="AppNaMe^TM"
         android:textColor="#E83C05"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
 

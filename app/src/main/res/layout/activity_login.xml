@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -21,15 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailLogIn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:textColorHint="#546E7A"
-                tools:ignore="VisualLintTextFieldSize" />
+        <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/emailLogIn"
+        android:hint="@string/email"
+        android:layout_width="match_parent"
+            android:minWidth="48dp"
+        android:layout_height="wrap_content"
+            android:minHeight="48dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -38,14 +37,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordLogIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword"
+            android:layout_width="match_parent"
             android:minWidth="48dp"
+            android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:textColorHint="#546E7A"
-            tools:ignore="VisualLintTextFieldSize" />
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
@@ -68,7 +65,7 @@
         android:textSize="20sp"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        android:id="@+id/registerNow"
+        android:id="@+id/logInNow"
         android:text="@string/klicka_f_r_att_registrera_dig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

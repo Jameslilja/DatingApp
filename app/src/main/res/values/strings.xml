@@ -26,8 +26,7 @@
     <string name="choose_preference">Välj preferenser</string>
     <string name="delete_account">Ta bort konto</string>
     <string name="test">TEST</string>
-    <string name="test_go_back">Tillbaka</string>
-    <string name="not_the_app_name">AppNaMe^TM</string>
+    <string name="gender">Man eller kvinna?</string>
 
     <string-array name="citiesInSwedenArray">
         <item> Alfta </item>
