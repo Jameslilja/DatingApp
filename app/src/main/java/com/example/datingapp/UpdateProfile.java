@@ -20,6 +20,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import com.example.datingapp.retrofit.RetrofitService;
+import com.example.datingapp.retrofit.UserApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -112,6 +114,11 @@ public class UpdateProfile extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), TestEmpty.class);
             startActivity(intent);
             finish();
+
+            RetrofitService retrofitService = new RetrofitService();
+            UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+
         });
 
         buttonGoToMainUpdate.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +129,7 @@ public class UpdateProfile extends AppCompatActivity {
             finish();
 
             // bara för att visa att det som skickas är korrekt
-            System.out.println("FIREBASE USER ID" + user.getUid()); //fungerar
+                System.out.println("BACKEND ID"); //fungerar
             System.out.println("USERNAME: " + editTextUsername.getText().toString()); //fungerar
             System.out.println("EMAIL: " + user.getEmail()); //fungerar
             System.out.println("FIRST NAME: " + editTextFirstname.getText().toString()); //fungerar

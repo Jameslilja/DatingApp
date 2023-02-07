@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -100,6 +101,15 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         editTextDescription = findViewById(R.id.editTextDescription);
         editTextGender = findViewById(R.id.editTextGender);
 
+        //String firebase_id = user.getUid();
+        String description = editTextDescription.getText().toString();
+        String email = user.getEmail();
+        String firstname = editTextFirstname.getText().toString();
+        String gender = editTextGender.getText().toString();
+        String lastName = editTextLastname.getText().toString();
+        String password = "LUL";
+        String username = editTextUsername.getText().toString();
+
         //SKA ÄVEN SKICKA TILL BACKEND OCH DATABAS
         buttonGoToMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,99 +129,23 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 System.out.println("PREFERENCES: " + selectedPreferencesToSend); //fungerar
                 System.out.println("GENDER: " + editTextGender.getText().toString()); //bör fungera
 
+                User userToSend = new User();
+                userToSend.setCity(selectedCity);
+                userToSend.setDescription(editTextDescription.getText().toString());
+                userToSend.setEmail(user.getEmail());
+                userToSend.setFirstname(editTextFirstname.getText().toString());
+                userToSend.setGender(editTextGender.getText().toString());
+                userToSend.setLastname(editTextLastname.getText().toString());
+                userToSend.setUsername(editTextUsername.getText().toString());
+
                 RetrofitService retrofitService = new RetrofitService();
                 UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
 
-                User userToSend = new User();
-
-                String firebase_id = user.getUid();
-                String description = editTextDescription.getText().toString();
-                String email = user.getEmail();
-                String firstname = editTextFirstname.getText().toString();
-                String gender = editTextGender.getText().toString();
-                String lastName = editTextLastname.getText().toString();
-                String password = "LUL";
-                String username = editTextUsername.getText().toString();
-
-                userToSend.setFirebase_id(firebase_id);
-                userToSend.setCity(selectedCity);
-                userToSend.setDescription(description);
-                userToSend.setEmail(email);
-                userToSend.setFirstname(firstname);
-                userToSend.setGender(gender);
-                userToSend.setLastname(lastName);
-                userToSend.setPassword(password);
-                userToSend.setUsername(username);
-
-
-                /*
-                if (preference1.isEmpty()){
-                    preference1 = "EJ VALD";
-                }
-                if (preference2.isEmpty()){
-                    preference2 = "EJ VALD";
-                }
-                if (preference3.isEmpty()){
-                    preference3 = "EJ VALD";
-                }
-                if (preference4.isEmpty()){
-                    preference4 = "EJ VALD";
-                }
-                if (preference5.isEmpty()){
-                    preference5 = "EJ VALD";
-                }
-                 */
-
-                /*
-                if (qualifications1.isEmpty()){
-                    qualifications1 = "EJ VALD";
-                }
-                if (qualifications2.isEmpty()){
-                    qualifications2 = "EJ VALD";
-                }
-                if (qualifications3.isEmpty()){
-                    qualifications3 = "EJ VALD";
-                }
-                if (qualifications4.isEmpty()){
-                    qualifications4 = "EJ VALD";
-                }
-                if (qualifications5.isEmpty()){
-                    qualifications5 = "EJ VALD";
-                } */
-
-                UserPreferences userPreferencesToSend = new UserPreferences();
-                userPreferencesToSend.setUserId(user.getUid());
-                userPreferencesToSend.setP1(preference1);
-                userPreferencesToSend.setP2(preference2);
-                userPreferencesToSend.setP3(preference3);
-                userPreferencesToSend.setP4(preference4);
-                userPreferencesToSend.setP5(preference5);
-
-                System.out.println("p1: " + preference1);
-                System.out.println("p2: " + preference2);
-                System.out.println("p3: " + preference3);
-                System.out.println("p4: " + preference4);
-                System.out.println("p5: " + preference5);
-
-                userApi.savePreferences(userPreferencesToSend).enqueue(new Callback<UserPreferences>() {
-                    @Override
-                    public void onResponse(Call<UserPreferences> call, Response<UserPreferences> response) {
-                        System.out.println("PREFERENCES ADDED TO DATABASE");
-                        Toast.makeText(NewUserFirstTimeLogin.this, "FUNGERADE", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Call<UserPreferences> call, Throwable t) {
-                        System.out.println("PREFERENCE FAIL");
-                        Toast.makeText(NewUserFirstTimeLogin.this, "FAIL", Toast.LENGTH_SHORT).show();
-                        Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
-                    }
-                });
 
                 userApi.registerUser(userToSend).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        System.out.println("USER ADDED TO DATABASE");
+                        System.out.println("USER ADDED TO DATABASE " + response.body());
                         Toast.makeText(NewUserFirstTimeLogin.this, "FUNGERADE", Toast.LENGTH_SHORT).show();
                     }
 
@@ -222,6 +156,12 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                         Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
                     }
                 });
+
+                System.out.println("p1: " + preference1);
+                System.out.println("p2: " + preference2);
+                System.out.println("p3: " + preference3);
+                System.out.println("p4: " + preference4);
+                System.out.println("p5: " + preference5);
 
             }
 

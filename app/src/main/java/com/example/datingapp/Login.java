@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.datingapp.retrofit.RetrofitService;
+import com.example.datingapp.retrofit.UserApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -54,13 +56,15 @@ public class Login extends AppCompatActivity {
         textViewRegisterNow = findViewById(R.id.logInNow);
         buttonTestStuff = findViewById(R.id.buttonTestStuff);
 
-        buttonTestStuff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TestEmpty.class);
-                startActivity(intent);
-                finish();
-            }
+        buttonTestStuff.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), TestEmpty.class);
+            startActivity(intent);
+            finish();
+
+            RetrofitService retrofitService = new RetrofitService();
+            UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+
         });
 
         textViewRegisterNow.setOnClickListener(new View.OnClickListener() {
