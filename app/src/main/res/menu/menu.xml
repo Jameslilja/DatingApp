@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="headline"
+        android:title="Search"
         android:icon="@drawable/baseline_search_24"
-        android:id="@+id/headline"
+        android:id="@+id/search"
         app:showAsAction="ifRoom|collapseActionView"
         android:actionViewClass="android.widget.SearchView"/>
     <item
         android:title="Profile"
         android:icon="@drawable/baseline_more_vert_24"
-        android:id="@+id/headline"
+        android:id="@+id/profile"
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_settings"

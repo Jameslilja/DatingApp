@@ -64,7 +64,9 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <include layout="@layout/item_adress"/>
+
+            <include layout="@layout/item_adress" />
+
             <include layout="@layout/item_email"/>
             <include layout="@layout/item_description"/>
 
