@@ -66,16 +66,10 @@
             android:layout_height="wrap_content">
             <include layout="@layout/item_adress"/>
             <include layout="@layout/item_email"/>
+            <include layout="@layout/item_description"/>
 
         </LinearLayout>
         
     </ScrollView>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomof="parent"
-        app:layout_contraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_contraintTop_toTopOf="parent"/>
 
 </LinearLayout>
