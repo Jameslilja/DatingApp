@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:padding="2dp"
-                android:src="@drawable/baseline_thumb_up"
+                android:src="@drawable/baseline_description_24"
                 android:layout_marginStart="5dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
@@ -37,7 +37,7 @@
 
         </LinearLayout>
         <TextView
-            android:text="Yoga, Pingis, Fotboll, Böcker"
+            android:text="En trevlig kille/tjej som gillar långa promenader och sex"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="18sp"

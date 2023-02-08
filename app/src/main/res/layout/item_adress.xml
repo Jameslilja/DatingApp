@@ -33,37 +33,37 @@
                 <TextView
                     android:text="Address"
                     android:textSize="16sp"
-                    android:layout_margin="5sp"
+                    android:layout_margin="5dp"
                     android:textStyle="bold|normal"
                     android:textColor="#F8554A4A"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:padding="1dp"
-            android:gravity="center"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:padding="5dp"
-                android:src="@drawable/baseline_add_circle"
-                android:layout_width="35dp"
-                android:layout_height="35dp"/>
-            <TextView
-                android:text="Add information"
-                android:textSize="16sp"
-                android:layout_margin="5sp"
-                android:textStyle="bold|normal"
-                android:textColor="#286DC2"
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="1dp"
+                android:gravity="center"
+                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:padding="5dp"
+                    android:src="@drawable/baseline_add_circle"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"/>
+                <TextView
+                    android:text="Add Information"
+                    android:textSize="16sp"
+                    android:layout_margin="5dp"
+                    android:textStyle="bold|normal"
+                    android:textColor="#286DC2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        </LinearLayout>
 
+            </LinearLayout>
 
         </RelativeLayout>
         <LinearLayout
@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:tint="@color/black"
+                app:tint="@color/black"
                 android:padding="2dp"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/baseline_home"
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="Your City from backend"
+                    android:text="Your city from Backend"
                     android:textSize="17sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -90,15 +90,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:text="Your City from backend \nYour Adress \nYour citycodde 72338"
+                    android:text="Your city from Backend \n Your address\n Your Zipcode example 72338"
                     android:textSize="13sp"
                     android:textColor="#ED5E5E5E"
                     android:textStyle="normal"
                     android:gravity="center"
-                    android:textAlignment="textStart"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    card_view:ignore="RtlCompat"/>
+                    android:layout_height="wrap_content"/>
 
 
             </LinearLayout>
@@ -106,7 +104,9 @@
 
 
         </LinearLayout>
+        
+    </LinearLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
 
