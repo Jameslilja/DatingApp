@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import com.example.datingapp.backend.User;
+import com.example.datingapp.backend.UserPreferences;
+import com.example.datingapp.backend.UserQualifications;
 import com.example.datingapp.retrofit.RetrofitService;
 import com.example.datingapp.retrofit.UserApi;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,7 +46,13 @@ public class UpdateProfile extends AppCompatActivity {
     boolean [] selectedQualificationsUpdate;
     ArrayList<Integer> qualificationListUpdate = new ArrayList<>();
     String [] qualificationArrayUpdate = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
-    ArrayList<String> selectedQualificationsToSend;
+    ArrayList<String> selectedQualificationsToSendUpdate;
+    UserQualifications userQualificationsUpdate = new UserQualifications();
+    String qualificationUpdate1;
+    String qualificationUpdate2;
+    String qualificationUpdate3;
+    String qualificationUpdate4;
+    String qualificationUpdate5;
 
     // preferences
     MaterialCardView selectCardPreferencesUpdate;
@@ -53,6 +61,12 @@ public class UpdateProfile extends AppCompatActivity {
     ArrayList<Integer> preferenceListUpdate = new ArrayList<>();
     String [] preferenceArrayUpdate = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
     ArrayList<String> selectedPreferencesToSendUpdate;
+    UserPreferences userPreferencesUpdate = new UserPreferences();
+    String preferenceUpdate1;
+    String preferenceUpdate2;
+    String preferenceUpdate3;
+    String preferenceUpdate4;
+    String preferenceUpdate5;
 
     //dessa används för searchView
     SearchView searchViewCityUpdate;
@@ -88,8 +102,6 @@ public class UpdateProfile extends AppCompatActivity {
         setContentView(R.layout.activity_update_profile);
 
         //API TEST
-
-
         editTextUsernameUpdate = findViewById(R.id.editTextUsernameUpdate);
         firebaseUserUpdate = FirebaseAuth.getInstance().getCurrentUser();
         editTextFirstnameUpdate = findViewById(R.id.editTextFirstnameUpdate);
@@ -144,6 +156,8 @@ public class UpdateProfile extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         userIdUpdate = response.body().getId();
+                        userQualificationsUpdate.setId(userIdUpdate);
+                        userPreferencesUpdate.setId(userIdUpdate);
 
                         userUpdate.setId(userIdUpdate);
                         userUpdate.setCity(selectedCityUpdate);
@@ -154,11 +168,14 @@ public class UpdateProfile extends AppCompatActivity {
                         userUpdate.setLastname(editTextLastnameUpdate.getText().toString());
                         userUpdate.setUsername(editTextUsernameUpdate.getText().toString());
 
+                        userPreferencesUpdate.setUserId(response.body().getId());
+                        userQualificationsUpdate.setUserId(response.body().getId());
+
                         userApi.updateUser(userUpdate).enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 System.out.println("Succeeded: " + response.body());
-                                System.out.println("hmm" + response.code());
+                                System.out.println("userUpdate: " + response.code());
                             }
 
                             @Override
@@ -168,6 +185,38 @@ public class UpdateProfile extends AppCompatActivity {
                                 Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred: ", t);
                             }
                         });
+                        if (response.body().getId() != null) {
+                            userApi.updateUserPreferences(userPreferencesUpdate).enqueue(new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+                                    System.out.println("Succeeded: " + response.body());
+                                    System.out.println("preferenceUpdate: " + response.code());
+                                }
+
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+                                    System.out.println("Kunde ej uppdatera");
+                                    Toast.makeText(UpdateProfile.this, "FAIL: ", Toast.LENGTH_SHORT).show();
+                                    Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred: ", t);
+                                }
+                            });
+                        }
+                        if (response.body().getId() != null) {
+                            userApi.updateUserQualifications(userQualificationsUpdate).enqueue(new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+                                    System.out.println("Succeeded: " + response.body());
+                                    System.out.println("qualificationUpdate: " + response.code());
+                                }
+
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+                                    System.out.println("Kunde ej uppdatera");
+                                    Toast.makeText(UpdateProfile.this, "FAIL: ", Toast.LENGTH_SHORT).show();
+                                    Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred: ", t);
+                                }
+                            });
+                        }
                     }
 
                     @Override
@@ -299,23 +348,33 @@ public class UpdateProfile extends AppCompatActivity {
         builder.setCancelable(false);
 
         builder.setMultiChoiceItems(qualificationArrayUpdate, selectedQualificationsUpdate, (dialogInterface, which, b) -> {
-            selectedQualificationsToSend = new ArrayList<>();
+            selectedQualificationsToSendUpdate = new ArrayList<>();
             if (b){
                 qualificationListUpdate.add(which);
                 if (selectedQualificationsUpdate[0]) {
-                    selectedQualificationsToSend.add(qualificationArrayUpdate[0]);
+                    qualificationUpdate1 = qualificationArrayUpdate[0];
+                    userQualificationsUpdate.setQ1(qualificationArrayUpdate[0]);
+                    selectedQualificationsToSendUpdate.add(qualificationArrayUpdate[0]);
                 }
                 if (selectedQualificationsUpdate[1]) {
-                    selectedQualificationsToSend.add(qualificationArrayUpdate[1]);
+                    qualificationUpdate2 = qualificationArrayUpdate[1];
+                    userQualificationsUpdate.setQ2(qualificationArrayUpdate[1]);
+                    selectedQualificationsToSendUpdate.add(qualificationArrayUpdate[1]);
                 }
                 if (selectedQualificationsUpdate[2]) {
-                    selectedQualificationsToSend.add(qualificationArrayUpdate[2]);
+                    qualificationUpdate3 = qualificationArrayUpdate[2];
+                    userQualificationsUpdate.setQ3(qualificationArrayUpdate[2]);
+                    selectedQualificationsToSendUpdate.add(qualificationArrayUpdate[2]);
                 }
                 if (selectedQualificationsUpdate[3]) {
-                    selectedQualificationsToSend.add(qualificationArrayUpdate[3]);
+                    qualificationUpdate4 = qualificationArrayUpdate[3];
+                    userQualificationsUpdate.setQ4(qualificationArrayUpdate[3]);
+                    selectedQualificationsToSendUpdate.add(qualificationArrayUpdate[3]);
                 }
                 if (selectedQualificationsUpdate[4]) {
-                    selectedQualificationsToSend.add(qualificationArrayUpdate[4]);
+                    qualificationUpdate5 = qualificationArrayUpdate[4];
+                    userQualificationsUpdate.setQ5(qualificationArrayUpdate[4]);
+                    selectedQualificationsToSendUpdate.add(qualificationArrayUpdate[4]);
                 }
             } else {
                 qualificationListUpdate.remove(which);
@@ -361,18 +420,28 @@ public class UpdateProfile extends AppCompatActivity {
             if (b){
                 preferenceListUpdate.add(which);
                 if (selectedPreferencesUpdate[0]) {
+                    preferenceUpdate1 = preferenceArrayUpdate[0];
+                    userPreferencesUpdate.setP1(preferenceArrayUpdate[0]);
                     selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[0]);
                 }
                 if (selectedPreferencesUpdate[1]) {
+                    preferenceUpdate2 = preferenceArrayUpdate[1];
+                    userPreferencesUpdate.setP2(preferenceArrayUpdate[1]);
                     selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[1]);
                 }
                 if (selectedPreferencesUpdate[2]) {
+                    preferenceUpdate3 = preferenceArrayUpdate[2];
+                    userPreferencesUpdate.setP3(preferenceArrayUpdate[2]);
                     selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[2]);
                 }
                 if (selectedPreferencesUpdate[3]) {
-                    selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[3]);
+                    preferenceUpdate4 = preferenceArrayUpdate[3];
+                    userPreferencesUpdate.setP4(preferenceArrayUpdate[3]);
+                    selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[0]);
                 }
                 if (selectedPreferencesUpdate[4]) {
+                    preferenceUpdate5 = preferenceArrayUpdate[4];
+                    userPreferencesUpdate.setP5(preferenceArrayUpdate[4]);
                     selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[4]);
                 }
             } else {

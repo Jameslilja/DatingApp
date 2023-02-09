@@ -137,8 +137,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 RetrofitService retrofitService = new RetrofitService();
                 UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
 
-
-
                 userApi.registerUser(userToSend).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
@@ -357,40 +355,37 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         builder.setTitle("Välj preferenser");
         builder.setCancelable(false);
 
-        builder.setMultiChoiceItems(preferenceArray, selectedPreferences, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which, boolean b) {
-                selectedPreferencesToSend = new ArrayList<>();
-                if (b){
-                    preferenceList.add(which);
-                    if (selectedPreferences[0]) {
-                        preference1 = preferenceArray[0];
-                        userPreferences.setP1(preferenceArray[0]);
-                        selectedPreferencesToSend.add(preferenceArray[0]); //ta bort?
-                    }
-                    if (selectedPreferences[1]) {
-                        preference2 = preferenceArray[1];
-                        userPreferences.setP2(preferenceArray[1]);
-                        selectedPreferencesToSend.add(preferenceArray[1]); //ta bort?
-                    }
-                    if (selectedPreferences[2]) {
-                        preference3 = preferenceArray[2];
-                        userPreferences.setP3(preferenceArray[2]);
-                        selectedPreferencesToSend.add(preferenceArray[2]); //ta bort?
-                    }
-                    if (selectedPreferences[3]) {
-                        preference4 = preferenceArray[3];
-                        userPreferences.setP4(preferenceArray[3]);
-                        selectedPreferencesToSend.add(preferenceArray[3]); //ta bort?
-                    }
-                    if (selectedPreferences[4]) {
-                        preference5 = preferenceArray[4];
-                        userPreferences.setP5(preferenceArray[4]);
-                        selectedPreferencesToSend.add(preferenceArray[4]); //ta bort?
-                    }
-                } else {
-                    preferenceList.remove(which);
+        builder.setMultiChoiceItems(preferenceArray, selectedPreferences, (dialogInterface, which, b) -> {
+            selectedPreferencesToSend = new ArrayList<>();
+            if (b){
+                preferenceList.add(which);
+                if (selectedPreferences[0]) {
+                    preference1 = preferenceArray[0];
+                    userPreferences.setP1(preferenceArray[0]);
+                    selectedPreferencesToSend.add(preferenceArray[0]); //ta bort?
                 }
+                if (selectedPreferences[1]) {
+                    preference2 = preferenceArray[1];
+                    userPreferences.setP2(preferenceArray[1]);
+                    selectedPreferencesToSend.add(preferenceArray[1]); //ta bort?
+                }
+                if (selectedPreferences[2]) {
+                    preference3 = preferenceArray[2];
+                    userPreferences.setP3(preferenceArray[2]);
+                    selectedPreferencesToSend.add(preferenceArray[2]); //ta bort?
+                }
+                if (selectedPreferences[3]) {
+                    preference4 = preferenceArray[3];
+                    userPreferences.setP4(preferenceArray[3]);
+                    selectedPreferencesToSend.add(preferenceArray[3]); //ta bort?
+                }
+                if (selectedPreferences[4]) {
+                    preference5 = preferenceArray[4];
+                    userPreferences.setP5(preferenceArray[4]);
+                    selectedPreferencesToSend.add(preferenceArray[4]); //ta bort?
+                }
+            } else {
+                preferenceList.remove(which);
             }
         }).setPositiveButton("Välj", new DialogInterface.OnClickListener() {
             @Override

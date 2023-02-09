@@ -29,6 +29,12 @@ public interface UserApi {
     @POST("user/updateUser")
     Call<String> updateUser(@Body User user);
 
+    @POST("userPref/update")
+    Call<String> updateUserPreferences(@Body UserPreferences userPreferences);
+
+    @POST("userQ/changeQualifications")
+    Call<String> updateUserQualifications(@Body UserQualifications userQualifications);
+
     @GET("user/findUserByEmail")
     Call<User> findUserByEmail(@Query("email") String email);
 }

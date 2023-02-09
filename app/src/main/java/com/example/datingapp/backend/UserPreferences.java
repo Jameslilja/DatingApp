@@ -1,6 +1,7 @@
 package com.example.datingapp.backend;
 
 public class UserPreferences {
+    Long id;
     String p1;
     String p2;
     String p3;
@@ -8,7 +9,8 @@ public class UserPreferences {
     String p5;
     Long userId;
 
-    public UserPreferences(String p1, String p2, String p3, String p4, String p5, Long userId) {
+    public UserPreferences(Long id, String p1, String p2, String p3, String p4, String p5, Long userId) {
+        this.id = id;
         this.p1 = p1;
         this.p2 = p2;
         this.p3 = p3;
@@ -19,6 +21,14 @@ public class UserPreferences {
 
     public UserPreferences(){
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getP1() {
@@ -72,7 +82,8 @@ public class UserPreferences {
     @Override
     public String toString() {
         return "UserPreferences{" +
-                "p1='" + p1 + '\'' +
+                "id=" + id +
+                ", p1='" + p1 + '\'' +
                 ", p2='" + p2 + '\'' +
                 ", p3='" + p3 + '\'' +
                 ", p4='" + p4 + '\'' +
