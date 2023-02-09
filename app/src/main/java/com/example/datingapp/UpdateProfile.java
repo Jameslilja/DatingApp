@@ -115,8 +115,7 @@ public class UpdateProfile extends AppCompatActivity {
             startActivity(intent);
             finish();
 
-            RetrofitService retrofitService = new RetrofitService();
-            UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
 
 
         });

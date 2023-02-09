@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,43 +21,40 @@ import androidx.appcompat.widget.SearchView;
 
 import com.example.datingapp.backend.User;
 import com.example.datingapp.backend.UserPreferences;
+import com.example.datingapp.backend.UserQualifications;
 import com.example.datingapp.retrofit.RetrofitService;
 import com.example.datingapp.retrofit.UserApi;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewUserFirstTimeLogin extends AppCompatActivity {
     // qualifications
     MaterialCardView selectCard;
+    UserQualifications userQualifications = new UserQualifications();
     TextView textViewQualifications;
     boolean [] selectedQualifications;
     ArrayList<Integer> qualificationList = new ArrayList<>();
     String [] qualificationArray = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
     ArrayList<String> selectedQualificationsToSend;
-    /*
     String qualifications1;
     String qualifications2;
     String qualifications3;
     String qualifications4;
     String qualifications5;
-     */
 
     // preferences
     MaterialCardView selectCardPreferences;
+    UserPreferences userPreferences = new UserPreferences();
     TextView textViewPreferences;
     boolean [] selectedPreferences;
     ArrayList<Integer> preferenceList = new ArrayList<>();
@@ -80,6 +76,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     //övriga
     Button buttonGoToMain;
 
+    Long userId;
     EditText editTextUsername;
     EditText editTextFirstname;
     EditText editTextLastname;
@@ -142,11 +139,51 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
 
 
+
                 userApi.registerUser(userToSend).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        System.out.println("USER ADDED TO DATABASE " + response.body());
+                        System.out.println("HMM " + response.body());
+                        System.out.println("STATUS: " + response.code());
                         Toast.makeText(NewUserFirstTimeLogin.this, "FUNGERADE", Toast.LENGTH_SHORT).show();
+                        System.out.println("? : " + response.body().getId());
+                        userToSend.setId(response.body().getId());
+                        userId = response.body().getId();
+
+                        userPreferences.setUserId(response.body().getId());
+                        userQualifications.setUserId(response.body().getId());
+
+                        if (response.body().getId() != null){
+                            System.out.println("preferenser" + selectedPreferencesToSend);
+                            userApi.savePreferences(userPreferences).enqueue(new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+                                    System.out.println("eeh" + response.body());
+                                    Toast.makeText(NewUserFirstTimeLogin.this,"" + response.body(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+                                    Toast.makeText(NewUserFirstTimeLogin.this, "FAIL", Toast.LENGTH_SHORT).show();
+                                    Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+                                }
+                            });
+                        }
+                        if (response.body().getId() !=null){
+                            System.out.println("qualifications: " + selectedPreferencesToSend);
+                            userApi.saveQualifications(userQualifications).enqueue(new Callback<String>() {
+                                @Override
+                                public void onResponse(Call<String> call, Response<String> response) {
+                                    System.out.println("qualifications: " + response.body());
+                                }
+
+                                @Override
+                                public void onFailure(Call<String> call, Throwable t) {
+                                    Toast.makeText(NewUserFirstTimeLogin.this, "FAIL", Toast.LENGTH_SHORT).show();
+                                    Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+                                }
+                            });
+                        }
                     }
 
                     @Override
@@ -163,6 +200,12 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 System.out.println("p4: " + preference4);
                 System.out.println("p5: " + preference5);
 
+
+                System.out.println("p1: " + qualifications1);
+                System.out.println("p2: " + qualifications2);
+                System.out.println("p3: " + qualifications3);
+                System.out.println("p4: " + qualifications4);
+                System.out.println("p5: " + qualifications5);
             }
 
         });
@@ -173,7 +216,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         selectedQualifications = new boolean[qualificationArray.length];
 
         selectCard.setOnClickListener(view -> {
-
             showQualificationsDialog();
         });
 
@@ -232,6 +274,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     private void showQualificationsDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(NewUserFirstTimeLogin.this);
 
+
         builder.setTitle("Välj kvalifikationer");
         builder.setCancelable(false);
 
@@ -242,23 +285,28 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                 if (b){
                     qualificationList.add(which);
                     if (selectedQualifications[0]) {
-                        //qualifications1 = qualificationArray[0];
+                        qualifications1 = qualificationArray[0];
+                        userQualifications.setQ1(qualificationArray[0]);
                         selectedQualificationsToSend.add(qualificationArray[0]);
                     }
                     if (selectedQualifications[1]) {
-                        //qualifications2 = qualificationArray[1];
+                        qualifications2 = qualificationArray[1];
+                        userQualifications.setQ2(qualificationArray[1]);
                         selectedQualificationsToSend.add(qualificationArray[1]);
                     }
                     if (selectedQualifications[2]) {
-                        //qualifications3 = qualificationArray[2];
+                        qualifications3 = qualificationArray[2];
+                        userQualifications.setQ3(qualificationArray[2]);
                         selectedQualificationsToSend.add(qualificationArray[2]);
                     }
                     if (selectedQualifications[3]) {
-                        //qualifications4 = qualificationArray[3];
+                        qualifications4 = qualificationArray[3];
+                        userQualifications.setQ4(qualificationArray[3]);
                         selectedQualificationsToSend.add(qualificationArray[3]);
                     }
                     if (selectedQualifications[4]) {
-                        //qualifications5 = qualificationArray[4];
+                        qualifications5 = qualificationArray[4];
+                        userQualifications.setQ5(qualificationArray[4]);
                         selectedQualificationsToSend.add(qualificationArray[4]);
                     }
                 } else {
@@ -318,23 +366,28 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                     preferenceList.add(which);
                     if (selectedPreferences[0]) {
                         preference1 = preferenceArray[0];
-                        selectedPreferencesToSend.add(preferenceArray[0]);
+                        userPreferences.setP1(preferenceArray[0]);
+                        selectedPreferencesToSend.add(preferenceArray[0]); //ta bort?
                     }
                     if (selectedPreferences[1]) {
                         preference2 = preferenceArray[1];
-                        selectedPreferencesToSend.add(preferenceArray[1]);
+                        userPreferences.setP2(preferenceArray[1]);
+                        selectedPreferencesToSend.add(preferenceArray[1]); //ta bort?
                     }
                     if (selectedPreferences[2]) {
                         preference3 = preferenceArray[2];
-                        selectedPreferencesToSend.add(preferenceArray[2]);
+                        userPreferences.setP3(preferenceArray[2]);
+                        selectedPreferencesToSend.add(preferenceArray[2]); //ta bort?
                     }
                     if (selectedPreferences[3]) {
                         preference4 = preferenceArray[3];
-                        selectedPreferencesToSend.add(preferenceArray[3]);
+                        userPreferences.setP4(preferenceArray[3]);
+                        selectedPreferencesToSend.add(preferenceArray[3]); //ta bort?
                     }
                     if (selectedPreferences[4]) {
                         preference5 = preferenceArray[4];
-                        selectedPreferencesToSend.add(preferenceArray[4]);
+                        userPreferences.setP5(preferenceArray[4]);
+                        selectedPreferencesToSend.add(preferenceArray[4]); //ta bort?
                     }
                 } else {
                     preferenceList.remove(which);

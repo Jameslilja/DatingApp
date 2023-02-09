@@ -1,6 +1,7 @@
 package com.example.datingapp.backend;
 
 public class User {
+    private Long id;
     private String city;
     private String description;
     private String email;
@@ -9,6 +10,18 @@ public class User {
     private String lastname;
     private String username;
 
+    public User(Long id, String city, String description, String email, String firstname, String gender, String lastname, String username) {
+        this.id = id;
+        this.city = city;
+        this.description = description;
+        this.email = email;
+        this.firstname = firstname;
+        this.gender = gender;
+        this.lastname = lastname;
+        this.username = username;
+    }
+
+    /*
     public User(String city, String description, String email, String firstname, String gender, String lastname, String username) {
         this.city = city;
         this.description = description;
@@ -19,10 +32,19 @@ public class User {
         this.username = username;
     }
 
+     */
+
     public User(){
 
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCity() {
         return city;

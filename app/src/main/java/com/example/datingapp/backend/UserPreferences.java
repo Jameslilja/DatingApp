@@ -6,9 +6,9 @@ public class UserPreferences {
     String p3;
     String p4;
     String p5;
-    String userId;
+    Long userId;
 
-    public UserPreferences(String p1, String p2, String p3, String p4, String p5, String userId) {
+    public UserPreferences(String p1, String p2, String p3, String p4, String p5, Long userId) {
         this.p1 = p1;
         this.p2 = p2;
         this.p3 = p3;
@@ -61,11 +61,23 @@ public class UserPreferences {
         this.p5 = p5;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "UserPreferences{" +
+                "p1='" + p1 + '\'' +
+                ", p2='" + p2 + '\'' +
+                ", p3='" + p3 + '\'' +
+                ", p4='" + p4 + '\'' +
+                ", p5='" + p5 + '\'' +
+                ", userId=" + userId +
+                '}';
     }
 }
