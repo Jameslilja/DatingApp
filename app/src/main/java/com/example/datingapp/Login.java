@@ -28,7 +28,6 @@ public class Login extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textViewRegisterNow;
-    Button buttonTestStuff;
 
     boolean newUser = true;
 
@@ -54,18 +53,7 @@ public class Login extends AppCompatActivity {
         buttonLogIn = findViewById(R.id.buttonLogIn);
         progressBar = findViewById(R.id.progressBarLogIn);
         textViewRegisterNow = findViewById(R.id.logInNow);
-        buttonTestStuff = findViewById(R.id.buttonTestStuff);
 
-        buttonTestStuff.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), TestEmpty.class);
-            startActivity(intent);
-            finish();
-
-            RetrofitService retrofitService = new RetrofitService();
-            UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
-
-
-        });
 
         textViewRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override

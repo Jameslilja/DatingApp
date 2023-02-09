@@ -20,15 +20,15 @@ public interface UserApi {
     @POST("user/saveUser")
     Call<User> registerUser(@Body User user);
 
-    @POST("user/updateUser")
-    Call<User> updateUser(@Body User user);
-
     @POST("userPref/save")
     Call<String> savePreferences(@Body UserPreferences userPreferences);
 
     @POST("userQ/save")
     Call<String> saveQualifications(@Body UserQualifications userQualifications);
 
-    //@GET("findUsersByUsername")
-    Call<User> getUserByUsername(@Path("username") String username);
+    @POST("user/updateUser")
+    Call<String> updateUser(@Body User user);
+
+    @GET("user/findUserByEmail")
+    Call<User> findUserByEmail(@Query("email") String email);
 }

@@ -82,7 +82,6 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     EditText editTextLastname;
     EditText editTextGender;
     EditText editTextDescription;
-    String userPassword = "Doesn't matter";
     FirebaseUser user;
 
     protected void onCreate(Bundle savedInstanceState) {

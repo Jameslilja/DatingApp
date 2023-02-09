@@ -150,16 +150,6 @@
         android:text="@string/goToMainActivity"
         android:id="@+id/buttonGoToMainUpdate"/>
 
-    <TextView
-        android:id="@+id/idTVResponse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center_horizontal"
-        android:text="@string/response_test"
-        android:textAlignment="center"
-        android:textSize="15sp" />
-
     <!--progress bar for loading -->
     <ProgressBar
         android:id="@+id/idLoadingPB"
@@ -169,9 +159,10 @@
         android:visibility="gone" />
 
     <Button
+        android:id="@+id/buttonDeleteAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete_account"
-        android:id="@+id/buttonDeleteAccount"/>
+        android:minHeight="48dp"
+        android:text="@string/delete_account" />
 
 </LinearLayout>

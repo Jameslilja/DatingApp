@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import com.example.datingapp.backend.User;
 import com.example.datingapp.retrofit.RetrofitService;
 import com.example.datingapp.retrofit.UserApi;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,12 +30,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UpdateProfile extends AppCompatActivity {
     // används för att kunna välja kvalifikationer
@@ -48,12 +47,12 @@ public class UpdateProfile extends AppCompatActivity {
     ArrayList<String> selectedQualificationsToSend;
 
     // preferences
-    MaterialCardView selectCardPreferences;
-    TextView textViewPreferences;
-    boolean [] selectedPreferences;
-    ArrayList<Integer> preferenceList = new ArrayList<>();
-    String [] preferenceArray = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
-    ArrayList<String> selectedPreferencesToSend;
+    MaterialCardView selectCardPreferencesUpdate;
+    TextView textViewPreferencesUpdate;
+    boolean [] selectedPreferencesUpdate;
+    ArrayList<Integer> preferenceListUpdate = new ArrayList<>();
+    String [] preferenceArrayUpdate = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
+    ArrayList<String> selectedPreferencesToSendUpdate;
 
     //dessa används för searchView
     SearchView searchViewCityUpdate;
@@ -70,14 +69,16 @@ public class UpdateProfile extends AppCompatActivity {
     Button buttonDeleteAccount;
 
     //API TEST
-    private TextView responseTV;
-    private ProgressBar loadingPB;
-    EditText editTextUsername;
-    EditText editTextFirstname;
-    EditText editTextLastname;
-    EditText getEditTextGender;
-    EditText editTextDescription;
-    FirebaseUser user;
+    EditText editTextUsernameUpdate;
+    EditText editTextFirstnameUpdate;
+    EditText editTextGenderUpdate;
+    EditText editTextLastnameUpdate;
+    EditText getEditTextGenderUpdate;
+    EditText editTextDescriptionUpdate;
+    FirebaseUser firebaseUserUpdate;
+    String emailUpdate;
+    Long userIdUpdate;
+    User userUpdate = new User();
 
     //övriga
     Button buttonGoToMainUpdate;
@@ -87,14 +88,15 @@ public class UpdateProfile extends AppCompatActivity {
         setContentView(R.layout.activity_update_profile);
 
         //API TEST
-        responseTV = findViewById(R.id.idTVResponse);
-        loadingPB = findViewById(R.id.idLoadingPB);
-        editTextUsername = findViewById(R.id.editTextUsernameUpdate);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        editTextFirstname = findViewById(R.id.editTextFirstnameUpdate);
-        editTextLastname = findViewById(R.id.editTextLastnameUpdate);
-        getEditTextGender = findViewById(R.id.editTextGenderUpdate);
-        editTextDescription = findViewById(R.id.editTextDescriptionUpdate);
+
+
+        editTextUsernameUpdate = findViewById(R.id.editTextUsernameUpdate);
+        firebaseUserUpdate = FirebaseAuth.getInstance().getCurrentUser();
+        editTextFirstnameUpdate = findViewById(R.id.editTextFirstnameUpdate);
+        editTextGenderUpdate = findViewById(R.id.editTextGenderUpdate);
+        editTextLastnameUpdate = findViewById(R.id.editTextLastnameUpdate);
+        getEditTextGenderUpdate = findViewById(R.id.editTextGenderUpdate);
+        editTextDescriptionUpdate = findViewById(R.id.editTextDescriptionUpdate);
 
         buttonGoToMainUpdate = findViewById(R.id.buttonGoToMainUpdate);
 
@@ -114,29 +116,66 @@ public class UpdateProfile extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), TestEmpty.class);
             startActivity(intent);
             finish();
-
-
-
-
         });
 
         buttonGoToMainUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
-                    public void onClick(View View) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+            public void onClick(View View) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
 
-            // bara för att visa att det som skickas är korrekt
-                System.out.println("BACKEND ID"); //fungerar
-            System.out.println("USERNAME: " + editTextUsername.getText().toString()); //fungerar
-            System.out.println("EMAIL: " + user.getEmail()); //fungerar
-            System.out.println("FIRST NAME: " + editTextFirstname.getText().toString()); //fungerar
-            System.out.println("LAST NAME: " + editTextLastname.getText().toString()); //fungerar
-            System.out.println("CITY: " + selectedCityUpdate); //fungerar
-            System.out.println("DESCRIPTION: " + editTextDescription.getText().toString()); //fungerar
-            System.out.println("QUALIFICATIONS: " + selectedQualificationsToSend); //fungerar
-            System.out.println("PREFERENCES: " + selectedPreferencesToSend); //fungerar
+
+                User userToSendUpdate = new User();
+                userToSendUpdate.setCity(selectedCityUpdate);
+                userToSendUpdate.setDescription(editTextDescriptionUpdate.getText().toString());
+                userToSendUpdate.setEmail(firebaseUserUpdate.getEmail());
+                userToSendUpdate.setFirstname(editTextFirstnameUpdate.getText().toString());
+                userToSendUpdate.setGender(editTextGenderUpdate.getText().toString());
+                userToSendUpdate.setLastname(editTextLastnameUpdate.getText().toString());
+                userToSendUpdate.setUsername(editTextUsernameUpdate.getText().toString());
+
+                RetrofitService retrofitService = new RetrofitService();
+                UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+                emailUpdate = firebaseUserUpdate.getEmail();
+
+                userApi.findUserByEmail(emailUpdate).enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        userIdUpdate = response.body().getId();
+
+                        userUpdate.setId(userIdUpdate);
+                        userUpdate.setCity(selectedCityUpdate);
+                        userUpdate.setDescription(editTextDescriptionUpdate.getText().toString());
+                        userUpdate.setEmail(firebaseUserUpdate.getEmail());
+                        userUpdate.setFirstname(editTextFirstnameUpdate.getText().toString());
+                        userUpdate.setGender(editTextGenderUpdate.getText().toString());
+                        userUpdate.setLastname(editTextLastnameUpdate.getText().toString());
+                        userUpdate.setUsername(editTextUsernameUpdate.getText().toString());
+
+                        userApi.updateUser(userUpdate).enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                System.out.println("Succeeded: " + response.body());
+                                System.out.println("hmm" + response.code());
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                System.out.println("Kunde ej uppdatera");
+                                Toast.makeText(UpdateProfile.this, "FAIL: ", Toast.LENGTH_SHORT).show();
+                                Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred: ", t);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(UpdateProfile.this, "FAIL", Toast.LENGTH_SHORT).show();
+                        Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+                    }
+                });
         }
         });
 
@@ -148,11 +187,11 @@ public class UpdateProfile extends AppCompatActivity {
         selectCardUpdate.setOnClickListener(view -> showQualificationsDialog());
 
         //preferences
-        selectCardPreferences = findViewById(R.id.selectCardPreferencesUpdate);
-        textViewPreferences = findViewById(R.id.textViewPreferencesUpdate);
-        selectedPreferences = new boolean[preferenceArray.length];
+        selectCardPreferencesUpdate = findViewById(R.id.selectCardPreferencesUpdate);
+        textViewPreferencesUpdate = findViewById(R.id.textViewPreferencesUpdate);
+        selectedPreferencesUpdate = new boolean[preferenceArrayUpdate.length];
 
-        selectCardPreferences.setOnClickListener(view -> {
+        selectCardPreferencesUpdate.setOnClickListener(view -> {
             showPreferencesUpdateDialog();
         });
 
@@ -317,53 +356,53 @@ public class UpdateProfile extends AppCompatActivity {
         builder.setTitle("Välj preferenser");
         builder.setCancelable(false);
 
-        builder.setMultiChoiceItems(preferenceArray, selectedPreferences, (dialogInterface, which, b) -> {
-            selectedPreferencesToSend = new ArrayList<>();
+        builder.setMultiChoiceItems(preferenceArrayUpdate, selectedPreferencesUpdate, (dialogInterface, which, b) -> {
+            selectedPreferencesToSendUpdate = new ArrayList<>();
             if (b){
-                preferenceList.add(which);
-                if (selectedPreferences[0]) {
-                    selectedPreferencesToSend.add(preferenceArray[0]);
+                preferenceListUpdate.add(which);
+                if (selectedPreferencesUpdate[0]) {
+                    selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[0]);
                 }
-                if (selectedPreferences[1]) {
-                    selectedPreferencesToSend.add(preferenceArray[1]);
+                if (selectedPreferencesUpdate[1]) {
+                    selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[1]);
                 }
-                if (selectedPreferences[2]) {
-                    selectedPreferencesToSend.add(preferenceArray[2]);
+                if (selectedPreferencesUpdate[2]) {
+                    selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[2]);
                 }
-                if (selectedPreferences[3]) {
-                    selectedPreferencesToSend.add(preferenceArray[3]);
+                if (selectedPreferencesUpdate[3]) {
+                    selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[3]);
                 }
-                if (selectedPreferences[4]) {
-                    selectedPreferencesToSend.add(preferenceArray[4]);
+                if (selectedPreferencesUpdate[4]) {
+                    selectedPreferencesToSendUpdate.add(preferenceArrayUpdate[4]);
                 }
             } else {
-                preferenceList.remove(which);
+                preferenceListUpdate.remove(which);
             }
         }).setPositiveButton("Välj", (dialog, which) -> {
 
             //create string builder
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < preferenceList.size(); i++){
+            for (int i = 0; i < preferenceListUpdate.size(); i++){
 
-                stringBuilder.append(preferenceArray[preferenceList.get(i)]);
+                stringBuilder.append(preferenceArrayUpdate[preferenceListUpdate.get(i)]);
 
                 //check condition
-                if (i != preferenceList.size() - 1){
+                if (i != preferenceListUpdate.size() - 1){
                     //when i is not equal to qualification list size
                     //then add a comma
                     stringBuilder.append(", ");
                 }
 
                 //setting selected qualifications to textView
-                textViewPreferences.setText(stringBuilder.toString());
+                textViewPreferencesUpdate.setText(stringBuilder.toString());
             }
         }).setNegativeButton("Avbryt", (dialog, which) -> dialog.dismiss()).setNeutralButton("Avmarkera alla", (dialog, which) -> {
             //clearing all selected qualifications on click
-            for (int i = 0; i < selectedPreferences.length; i ++){
-                selectedPreferences[i] = false;
+            for (int i = 0; i < selectedPreferencesUpdate.length; i ++){
+                selectedPreferencesUpdate[i] = false;
 
-                preferenceList.clear();
-                textViewPreferences.setText("");
+                preferenceListUpdate.clear();
+                textViewPreferencesUpdate.setText("");
             }
         });
         builder.show();
@@ -377,7 +416,7 @@ public class UpdateProfile extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("Radera mitt konto!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        user.delete()
+                        firebaseUserUpdate.delete()
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
