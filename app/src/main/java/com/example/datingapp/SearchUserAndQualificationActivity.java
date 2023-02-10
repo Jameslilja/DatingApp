@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.datingapp.backend.Qualification;
 import com.example.datingapp.backend.User;
 import com.example.datingapp.retrofit.RetrofitService;
 import com.example.datingapp.retrofit.UserApi;
@@ -28,28 +29,22 @@ import retrofit2.Response;
 //Söka efter användare baserat på användarnamn eller bara kvalifikationer.
 // (Dropdown för kvalifikationer och sökfunktion för användarnamn?)
 public class SearchUserAndQualificationActivity extends AppCompatActivity {
-    // qualifications
-    //TextView textViewQualificationsSearch; //behövs för att välja kvalifikationer
-    //boolean[] selectedQualificationsSearch; //behövs för att välja kvalifikationer
-    ArrayList<Integer> qualificationsSearchList = new ArrayList<>();
-    String[] qualificationsSearchArray = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
-    ArrayList<String> selectedQualificationsSearchToSend;
-
-    //searchUser
+    //search
     SearchView searchViewUsers;
     ListView listViewUsers;
-    ArrayList<User> arrayListUsers;
     ArrayAdapter adapter;
     String selectedUser;
-    ArrayList<User> arrayListUsersTest;
+    ArrayList<User> arrayListUsers;
     Button swapSearchButton;
     TextView textViewSwappedSearchText;
-    boolean isSwapButtonPressed = false;
+    boolean isSwapButtonPressed = false; //false innebär sök efter användare och och true innebär sök på qualification
+    ArrayList<Qualification> arrayListQualification;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_empty);
+        setContentView(R.layout.activity_search_user_and_qualification);
 
         searchViewUsers = findViewById(R.id.searchViewUsers);
         listViewUsers = findViewById(R.id.listViewSearchUsers);
@@ -57,9 +52,16 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
         textViewSwappedSearchText = findViewById(R.id.textViewSwappedSearchText);
 
         //showQualificationsSearchDialog(); //behövs för att välja kvalifikationer
-        searchUsers();
         swapSearch();
+        initializeSearch();
+    }
 
+    private void initializeSearch(){
+        if (!isSwapButtonPressed){
+            searchUsers();
+        } else {
+            searchQualifications();
+        }
     }
 
     private void swapSearch(){
@@ -73,6 +75,7 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
                     textViewSwappedSearchText.setText("Sök baserat på kvalifikationer");
                     isSwapButtonPressed = true;
                 }
+                initializeSearch();
             }
         });
     }
@@ -84,7 +87,7 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
         userApi.findAllUsers().enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                arrayListUsersTest = new ArrayList<>();
+                arrayListUsers = new ArrayList<>();
 
                 for (int i = 0; i < response.body().size(); i++){
                     User userTest = new User();
@@ -97,21 +100,21 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
                     userTest.setLastname(response.body().get(i).getLastname());
                     userTest.setUsername(response.body().get(i).getUsername());
 
-                    arrayListUsersTest.add(userTest);
+                    arrayListUsers.add(userTest);
                 }
 
-                System.out.println("ARRAYTEST" + arrayListUsersTest);
-                System.out.println("ARRAYTEST" + arrayListUsersTest.get(1));
+                initializeAdapter();
+
+                System.out.println("ARRAYTEST" + arrayListUsers);
+                System.out.println("ARRAYTEST" + arrayListUsers.get(1));
 
                 System.out.println("hmm" + response.code());
                 System.out.println("RESPONSE BODY FIRST TIME: " + response.body());
 
                 System.out.println("hmmm" + response.body().getClass());
 
-                initializeAdapter();
                 System.out.println("FIND ALL USERS PASSED");
                 System.out.println("*****");
-                System.out.println(arrayListUsers);
                 System.out.println("*****");
             }
 
@@ -121,6 +124,8 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
                 Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });
+
+
 
         searchViewUsers.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -156,8 +161,53 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
         });
     }
 
+    private void searchQualifications(){
+        RetrofitService retrofitService = new RetrofitService();
+        UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+        userApi.findAllQualification().enqueue(new Callback<List<Qualification>>() {
+            @Override
+            public void onResponse(Call<List<Qualification>> call, Response<List<Qualification>> response) {
+                arrayListQualification = new ArrayList<>();
+
+                System.out.println("felkod: " + response.code());
+                System.out.println("hmm" + response.body());
+                System.out.println(response.message());
+                System.out.println(response.raw());
+
+
+                for (int i = 0; i < response.body().size(); i++){
+                    Qualification qualificationTest = new Qualification();
+                    qualificationTest.setId(response.body().get(i).getId());
+                    qualificationTest.setQualification(response.body().get(i).getQualification());
+
+                    arrayListQualification.add(qualificationTest);
+                }
+                initializeAdapter();
+
+                System.out.println("outside for-loop: " + arrayListQualification.get(0));
+                System.out.println("outside for-loop: " + arrayListQualification.get(1));
+                System.out.println("outside for-loop: " + arrayListQualification.get(2));
+                System.out.println("outside for-loop: " + arrayListQualification.get(3));
+                System.out.println("outside for-loop: " + arrayListQualification.get(4));
+            }
+
+            @Override
+            public void onFailure(Call<List<Qualification>> call, Throwable t) {
+                Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+            }
+        });
+    }
+
     private void initializeAdapter() {
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayListUsersTest);
+
+        if (!isSwapButtonPressed)
+        {
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayListUsers);
+        } else {
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayListQualification);
+        }
+
         listViewUsers.setAdapter(adapter);
     }
 

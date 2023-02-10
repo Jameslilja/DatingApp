@@ -1,20 +1,16 @@
 package com.example.datingapp.retrofit;
 
+import com.example.datingapp.backend.Qualification;
 import com.example.datingapp.backend.User;
 import com.example.datingapp.backend.UserPreferences;
 import com.example.datingapp.backend.UserQualifications;
 
 import java.util.List;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserApi {
@@ -42,4 +38,7 @@ public interface UserApi {
 
     @GET("user/findAllUsers")
     Call<List<User>> findAllUsers();
+
+    @GET("qualification/findAllQualification")
+    Call<List<Qualification>> findAllQualification();
 }

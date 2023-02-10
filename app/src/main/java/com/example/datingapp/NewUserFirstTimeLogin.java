@@ -58,7 +58,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     TextView textViewPreferences;
     boolean [] selectedPreferences;
     ArrayList<Integer> preferenceList = new ArrayList<>();
-    String [] preferenceArray = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
+    String [] preferenceArray = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
     ArrayList<String> selectedPreferencesToSend;
     String preference1 = "EJ VALD";
     String preference2 = "EJ VALD";

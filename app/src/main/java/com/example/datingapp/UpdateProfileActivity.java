@@ -45,7 +45,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     TextView textViewQualificationsUpdate;
     boolean [] selectedQualificationsUpdate;
     ArrayList<Integer> qualificationListUpdate = new ArrayList<>();
-    String [] qualificationArrayUpdate = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
+    String [] qualificationArrayUpdate = {"Datorkunskaper", "Datorkunskaper", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
     ArrayList<String> selectedQualificationsToSendUpdate;
     UserQualifications userQualificationsUpdate = new UserQualifications();
     String qualificationUpdate1;
@@ -59,7 +59,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     TextView textViewPreferencesUpdate;
     boolean [] selectedPreferencesUpdate;
     ArrayList<Integer> preferenceListUpdate = new ArrayList<>();
-    String [] preferenceArrayUpdate = {"Datorkunnig", "Bra på att kommunicera", "Bra på att lösa problem", "Hanterar tiden bra", "Pedagogisk"};
+    String [] preferenceArrayUpdate = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
     ArrayList<String> selectedPreferencesToSendUpdate;
     UserPreferences userPreferencesUpdate = new UserPreferences();
     String preferenceUpdate1;
