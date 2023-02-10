@@ -6,7 +6,8 @@
         android:icon="@drawable/baseline_search_24"
         android:id="@+id/search"
         app:showAsAction="ifRoom|collapseActionView"
-        android:actionViewClass="android.widget.SearchView"/>
+        android:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
     <item
         android:title="Profile"
         android:icon="@drawable/baseline_more_vert_24"
@@ -16,5 +17,10 @@
         android:id="@+id/action_settings"
         android:title="Settings"
         app:showAsAction="never"/>
+    <item
+        android:title="Add"
+        android:id="@+id/add"
+        android:icon="@drawable/baseline_person_add_24"
+        app:showAsAction="ifRoom"/>
 
 </menu>
