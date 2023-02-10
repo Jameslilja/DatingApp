@@ -24,6 +24,9 @@
             android:name=".UpdateProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".SecondProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewUserFirstTimeLogin"
             android:exported="false"
             android:theme="@style/Theme.Material3.Light.NoActionBar" />

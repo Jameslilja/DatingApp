@@ -36,6 +36,9 @@ public interface UserApi {
     @GET("user/findUserByEmail")
     Call<User> findUserByEmail(@Query("email") String email);
 
+    @GET("user/findUserByUsername")
+    Call<User> findUserByUsername(@Query("username") String username);
+
     @GET("user/findAllUsers")
     Call<List<User>> findAllUsers();
 

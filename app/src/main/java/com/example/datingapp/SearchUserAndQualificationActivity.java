@@ -3,6 +3,7 @@ package com.example.datingapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -153,7 +154,11 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
 
                 listViewUsers.setSelection(i);
 
-                //closeKeyboard();
+
+                Intent intent = new Intent(getApplicationContext(), SecondProfileActivity.class);
+                intent.putExtra("selectedUsername", selectedUser);
+                startActivity(intent);
+                finish();
 
                 Toast.makeText(getApplicationContext(), selectedUser + " valt.", Toast.LENGTH_LONG).show();
                 System.out.println("ANVÄNDARE VALD ÄR: " + selectedUser);

@@ -100,13 +100,11 @@ public class User {
                 ", gender='" + gender + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", username='" + username + '\'' +
-                '}';
-
-
+                '}'
  */
 
     @Override
     public String toString() {
-        return "Användare: " + username;
+        return username;
     }
 }
