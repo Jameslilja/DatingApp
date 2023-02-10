@@ -12,8 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.datingapp.retrofit.RetrofitService;
-import com.example.datingapp.retrofit.UserApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -21,13 +19,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     TextInputEditText editTextEmail;
     TextInputEditText editTextPassword;
     Button buttonLogIn;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textViewRegisterNow;
+    Button buttonTestStuff;
 
     boolean newUser = true;
 
@@ -47,6 +46,18 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //test
+        buttonTestStuff = findViewById(R.id.buttonTestStuff);
+
+        buttonTestStuff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SearchUserAndQualificationActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.emailLogIn);
         editTextPassword = findViewById(R.id.passwordLogIn);
@@ -58,7 +69,7 @@ public class Login extends AppCompatActivity {
         textViewRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Register.class);
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -73,12 +84,12 @@ public class Login extends AppCompatActivity {
                 password = String.valueOf(editTextPassword.getText());
 
                 if (TextUtils.isEmpty(email)){
-                    Toast.makeText(Login.this, "Fyll i er e-post", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Fyll i er e-post", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)){
-                    Toast.makeText(Login.this, "Fyll i ert lösenord", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Fyll i ert lösenord", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -94,7 +105,7 @@ public class Login extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Toast.makeText(Login.this, "Authentication failed.",
+                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }

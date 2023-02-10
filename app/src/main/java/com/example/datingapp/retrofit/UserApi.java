@@ -4,6 +4,8 @@ import com.example.datingapp.backend.User;
 import com.example.datingapp.backend.UserPreferences;
 import com.example.datingapp.backend.UserQualifications;
 
+import java.util.List;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -37,4 +39,7 @@ public interface UserApi {
 
     @GET("user/findUserByEmail")
     Call<User> findUserByEmail(@Query("email") String email);
+
+    @GET("user/findAllUsers")
+    Call<List<User>> findAllUsers();
 }

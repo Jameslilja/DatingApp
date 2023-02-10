@@ -10,9 +10,18 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <!-- text view to display selected items-->
     <TextView
-        android:id="@+id/textViewSelectQualificationsSearch"
+        android:id="@+id/textViewSwappedSearchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:padding="15sp"
+        android:text="Sök efter användare"/>
+
+    <!-- text view to display selected items-->
+    <!--
+    <TextView
+        android:id="@+id/textViewSelectSearchUsersQualifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -22,11 +31,26 @@
         android:padding="12dp"
         android:textColorHint="#757575"
         app:drawableRightCompat="@android:drawable/arrow_down_float" />
+        -->
+
+    <androidx.appcompat.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchViewUsers"
+        app:iconifiedByDefault="false"
+        app:queryHint="Sök"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:id="@+id/listViewSearchUsers"/>
 
     <Button
+        android:id="@+id/swapSearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/test"
+        android:layout_margin="20sp"
+        android:text="@string/swap_search"
         tools:ignore="SpeakableTextPresentCheck" />
 </LinearLayout>

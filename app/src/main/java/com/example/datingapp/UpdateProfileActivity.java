@@ -39,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpdateProfile extends AppCompatActivity {
+public class UpdateProfileActivity extends AppCompatActivity {
     // används för att kunna välja kvalifikationer
     MaterialCardView selectCardUpdate;
     TextView textViewQualificationsUpdate;
@@ -125,7 +125,7 @@ public class UpdateProfile extends AppCompatActivity {
 
         //UPDATE
         buttonUpDatePrivateInfo.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), TestEmpty.class);
+            Intent intent = new Intent(getApplicationContext(), SearchUserAndQualificationActivity.class);
             startActivity(intent);
             finish();
         });
@@ -181,7 +181,8 @@ public class UpdateProfile extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
                                 System.out.println("Kunde ej uppdatera");
-                                Toast.makeText(UpdateProfile.this, "FAIL: ", Toast.LENGTH_SHORT).show();
+                                System.out.println("hmm" + response.code());
+                                Toast.makeText(UpdateProfileActivity.this, "FAIL: ", Toast.LENGTH_SHORT).show();
                                 Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred: ", t);
                             }
                         });
@@ -196,7 +197,8 @@ public class UpdateProfile extends AppCompatActivity {
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
                                     System.out.println("Kunde ej uppdatera");
-                                    Toast.makeText(UpdateProfile.this, "FAIL: ", Toast.LENGTH_SHORT).show();
+                                    System.out.println("hmm" + response.code());
+                                    Toast.makeText(UpdateProfileActivity.this, "FAIL: ", Toast.LENGTH_SHORT).show();
                                     Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred: ", t);
                                 }
                             });
@@ -212,7 +214,8 @@ public class UpdateProfile extends AppCompatActivity {
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
                                     System.out.println("Kunde ej uppdatera");
-                                    Toast.makeText(UpdateProfile.this, "FAIL: ", Toast.LENGTH_SHORT).show();
+                                    System.out.println("hmm" + response.code());
+                                    Toast.makeText(UpdateProfileActivity.this, "FAIL: ", Toast.LENGTH_SHORT).show();
                                     Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred: ", t);
                                 }
                             });
@@ -221,7 +224,7 @@ public class UpdateProfile extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        Toast.makeText(UpdateProfile.this, "FAIL", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateProfileActivity.this, "FAIL", Toast.LENGTH_SHORT).show();
                         Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
                     }
                 });
@@ -256,14 +259,12 @@ public class UpdateProfile extends AppCompatActivity {
         searchViewCityUpdate.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 adapterUpdate.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 adapterUpdate.getFilter().filter(newText);
                 listViewCityUpdate.setVisibility(View.VISIBLE);
                 return false;
@@ -342,7 +343,7 @@ public class UpdateProfile extends AppCompatActivity {
 
     //qualifications
     private void showQualificationsDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProfile.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProfileActivity.this);
 
         builder.setTitle("Välj kvalifikationer");
         builder.setCancelable(false);
@@ -410,7 +411,7 @@ public class UpdateProfile extends AppCompatActivity {
     }
 
     private void showPreferencesUpdateDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProfile.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProfileActivity.this);
 
         builder.setTitle("Välj preferenser");
         builder.setCancelable(false);
@@ -502,7 +503,7 @@ public class UpdateProfile extends AppCompatActivity {
                                 });
 
                         //Login eller Register istället för Splash screen?
-                        Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
+                        Intent intent = new Intent(getApplicationContext(), SplashScreenActivity.class);
                         startActivity(intent);
                         finish();
 

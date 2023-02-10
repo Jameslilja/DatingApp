@@ -151,10 +151,12 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                         userQualifications.setUserId(response.body().getId());
 
                         if (response.body().getId() != null){
+                            System.out.println("hmm" + response.code());
                             System.out.println("preferenser" + selectedPreferencesToSend);
                             userApi.savePreferences(userPreferences).enqueue(new Callback<String>() {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
+                                    System.out.println("hmm" + response.code());
                                     System.out.println("eeh" + response.body());
                                     Toast.makeText(NewUserFirstTimeLogin.this,"" + response.body(), Toast.LENGTH_SHORT).show();
                                 }
@@ -167,10 +169,12 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
                             });
                         }
                         if (response.body().getId() !=null){
+                            System.out.println("hmm" + response.code());
                             System.out.println("qualifications: " + selectedPreferencesToSend);
                             userApi.saveQualifications(userQualifications).enqueue(new Callback<String>() {
                                 @Override
                                 public void onResponse(Call<String> call, Response<String> response) {
+                                    System.out.println("hmm" + response.code());
                                     System.out.println("qualifications: " + response.body());
                                 }
 

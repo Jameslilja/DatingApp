@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         //LOGOUT
         if(user == null){
-            Intent intent = new Intent(getApplicationContext(), Login.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         } else {
             textView.setText(user.getEmail());
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
 
-                Intent intent = new Intent(getApplicationContext(), Login.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         buttonUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UpdateProfile.class);
+                Intent intent = new Intent(getApplicationContext(), UpdateProfileActivity.class);
                 startActivity(intent);
             }
         });

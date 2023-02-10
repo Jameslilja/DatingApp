@@ -18,10 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".TestEmpty"
+            android:name=".SearchUserAndQualificationActivity"
             android:exported="false" />
         <activity
-            android:name=".UpdateProfile"
+            android:name=".UpdateProfileActivity"
             android:exported="false" />
         <activity
             android:name=".NewUserFirstTimeLogin"
@@ -32,7 +32,7 @@
             android:exported="false"
             android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.Material3.Light">
             <intent-filter>
@@ -42,11 +42,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Register"
+            android:name=".RegisterActivity"
             android:exported="false"
             android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
-            android:name=".Login"
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.Material3.Light.NoActionBar" />
     </application>

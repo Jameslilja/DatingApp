@@ -27,6 +27,8 @@
     <string name="delete_account">Ta bort konto</string>
     <string name="test">TEST</string>
     <string name="gender">Man eller kvinna?</string>
+    <string name="search_username">Sök efter användarnamn</string>
+    <string name="swap_search">Ändra sök</string>
 
     <string-array name="citiesInSwedenArray">
         <item> Alfta </item>

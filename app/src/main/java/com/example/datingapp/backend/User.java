@@ -21,22 +21,10 @@ public class User {
         this.username = username;
     }
 
-    /*
-    public User(String city, String description, String email, String firstname, String gender, String lastname, String username) {
-        this.city = city;
-        this.description = description;
-        this.email = email;
-        this.firstname = firstname;
-        this.gender = gender;
-        this.lastname = lastname;
-        this.username = username;
-    }
-
-     */
-
     public User(){
 
     }
+
 
     public Long getId() {
         return id;
@@ -102,8 +90,8 @@ public class User {
         this.username = username;
     }
 
-    @Override
-    public String toString() {
+
+/*
         return "User{" +
                 "city='" + city + '\'' +
                 ", description='" + description + '\'' +
@@ -113,5 +101,12 @@ public class User {
                 ", lastname='" + lastname + '\'' +
                 ", username='" + username + '\'' +
                 '}';
+
+
+ */
+
+    @Override
+    public String toString() {
+        return "Användare: " + username;
     }
 }

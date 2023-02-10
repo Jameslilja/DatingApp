@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class   Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;
     Button buttonReg;
     FirebaseAuth mAuth;
@@ -51,7 +51,7 @@ public class   Register extends AppCompatActivity {
         textViewLogInNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Login.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -66,12 +66,12 @@ public class   Register extends AppCompatActivity {
                   password = String.valueOf(editTextPassword.getText());
 
                   if (TextUtils.isEmpty(email)){
-                      Toast.makeText(Register.this, "Fyll i er e-post", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(RegisterActivity.this, "Fyll i er e-post", Toast.LENGTH_SHORT).show();
                       return;
                   }
 
                   if (TextUtils.isEmpty(password)){
-                      Toast.makeText(Register.this, "Fyll i ert lösenord", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(RegisterActivity.this, "Fyll i ert lösenord", Toast.LENGTH_SHORT).show();
                       return;
                   }
 
@@ -81,14 +81,14 @@ public class   Register extends AppCompatActivity {
                                public void onComplete(@NonNull Task<AuthResult> task) {
                                    progressBar.setVisibility(View.GONE);
                                    if (task.isSuccessful()) {
-                                        Toast.makeText(Register.this, "Konto skapat.",
+                                        Toast.makeText(RegisterActivity.this, "Konto skapat.",
                                                 Toast.LENGTH_SHORT).show();
                                        Intent intent = new Intent(getApplicationContext(), NewUserFirstTimeLogin.class);
                                        startActivity(intent);
                                        finish();
                                    } else {
                                        // If sign in fails, display a message to the user.
-                                       Toast.makeText(Register.this, "Authentication failed.",
+                                       Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                                Toast.LENGTH_SHORT).show();
                                    }
                                }

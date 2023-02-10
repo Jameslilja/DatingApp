@@ -7,7 +7,7 @@
     android:padding="15dp"
     android:gravity="center"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".LoginActivity">
 
     <TextView
         android:text="@string/fyll_i_informationen_nedan"
