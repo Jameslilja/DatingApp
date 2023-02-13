@@ -37,6 +37,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/textViewItemQualifications"
             android:text="Yoga, Pingis, Fotboll, Böcker"
             android:textStyle="bold"
             android:textColor="@color/black"
