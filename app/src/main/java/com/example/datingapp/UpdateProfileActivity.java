@@ -554,6 +554,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 editTextDescriptionUpdate.setText(response.body().getDescription());
 
                 getUserQualifications();
+                getUserPreferences();
             }
 
             @Override
@@ -607,6 +608,55 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserQualifications> call, Throwable t) {
+                Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+            }
+        });
+    }
+
+    private void getUserPreferences(){
+        RetrofitService retrofitService = new RetrofitService();
+        UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+        Long userId = userUpdate.getId();
+        System.out.println("userId: " + userId);
+
+        userApi.getUserPreferencesByUserId(userId).enqueue(new Callback<UserPreferences>() {
+            @Override
+            public void onResponse(Call<UserPreferences> call, Response<UserPreferences> response) {
+                //formatting the output
+                String allSelectedPreferences = "";
+
+                String p1 = response.body().getP1();
+                if (!p1.equals("")){
+                    allSelectedPreferences += p1 + ", ";
+                }
+                String p2 = response.body().getP2();
+                if (!p2.equals("")){
+                    allSelectedPreferences += p2 + ", ";
+                }
+                String p3 = response.body().getP3();
+                if (!p3.equals("")){
+                    allSelectedPreferences += p3 + ", ";
+                }
+                String p4 = response.body().getP4();
+                if (!p4.equals("")){
+                    allSelectedPreferences += p4 + ", ";
+                }
+                String p5 = response.body().getP5();
+                if (!p5.equals("")){
+                    allSelectedPreferences += p5;
+                }
+                //the StringBuffer is used to remove commas if the chosen option is not the last
+                if (allSelectedPreferences.endsWith(","))
+                {
+                    StringBuffer sbP = new StringBuffer(allSelectedPreferences);
+                    allSelectedPreferences = String.valueOf(sbP.deleteCharAt(sbP.length() -1));
+                }
+                textViewPreferencesUpdate.setText(allSelectedPreferences);
+            }
+
+            @Override
+            public void onFailure(Call<UserPreferences> call, Throwable t) {
                 Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });

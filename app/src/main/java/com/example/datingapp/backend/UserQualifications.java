@@ -81,6 +81,6 @@ public class UserQualifications {
 
     @Override
     public String toString() {
-        return q1 + q2 + q3 +q4 +q5;
+        return q1 + q2 + q3 +q4 + q5;
     }
 }

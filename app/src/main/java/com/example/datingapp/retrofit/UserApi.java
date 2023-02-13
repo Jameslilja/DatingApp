@@ -18,23 +18,8 @@ public interface UserApi {
     @POST("user/saveUser")
     Call<User> registerUser(@Body User user);
 
-    @POST("userPref/save")
-    Call<String> savePreferences(@Body UserPreferences userPreferences);
-
-    @POST("userQ/save")
-    Call<String> saveQualifications(@Body UserQualifications userQualifications);
-
     @POST("user/updateUser")
     Call<String> updateUser(@Body User user);
-
-    @POST("userPref/update")
-    Call<String> updateUserPreferences(@Body UserPreferences userPreferences);
-
-    @POST("userQ/changeQualifications")
-    Call<String> updateUserQualifications(@Body UserQualifications userQualifications);
-
-    @GET("userQ/findUserQualificationsByUserId")
-    Call<UserQualifications> getUserQualificationsByUserId(@Query("userId") Long userId);
 
     @GET("user/findUserByEmail")
     Call<User> findUserByEmail(@Query("email") String email);
@@ -44,6 +29,24 @@ public interface UserApi {
 
     @GET("user/findAllUsers")
     Call<List<User>> findAllUsers();
+
+    @POST("userPref/save")
+    Call<String> savePreferences(@Body UserPreferences userPreferences);
+
+    @POST("userPref/update")
+    Call<String> updateUserPreferences(@Body UserPreferences userPreferences);
+
+    @GET("userPref/findUserPreferencesByUserId")
+    Call<UserPreferences> getUserPreferencesByUserId(@Query("userId") Long userId);
+
+    @POST("userQ/save")
+    Call<String> saveQualifications(@Body UserQualifications userQualifications);
+
+    @POST("userQ/changeQualifications")
+    Call<String> updateUserQualifications(@Body UserQualifications userQualifications);
+
+    @GET("userQ/findUserQualificationsByUserId")
+    Call<UserQualifications> getUserQualificationsByUserId(@Query("userId") Long userId);
 
     @GET("qualification/findAllQualification")
     Call<List<Qualification>> findAllQualification();
