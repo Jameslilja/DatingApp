@@ -45,7 +45,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     TextView textViewQualificationsUpdate;
     boolean [] selectedQualificationsUpdate;
     ArrayList<Integer> qualificationListUpdate = new ArrayList<>();
-    String [] qualificationArrayUpdate = {"Datorkunskaper", "Datorkunskaper", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
+    String [] qualificationArrayUpdate = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
     ArrayList<String> selectedQualificationsToSendUpdate;
     UserQualifications userQualificationsUpdate = new UserQualifications();
     String qualificationUpdate1;
@@ -116,6 +116,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         buttonDeleteAccount = findViewById(R.id.buttonDeleteAccount);
 
+        //gets the saved information about the user
+        getUserInfo();
+
         buttonDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,7 +142,15 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
 
                 User userToSendUpdate = new User();
-                userToSendUpdate.setCity(selectedCityUpdate);
+
+                //if there is no selected city the previously saved city is chosen instead
+                //search views work a bit differently
+                if(selectedCityUpdate == null) {
+                    selectedCityUpdate = userUpdate.getCity();
+                    System.out.println(userUpdate.getCity());
+                } else {
+                    userToSendUpdate.setCity(selectedCityUpdate);
+                }
                 userToSendUpdate.setDescription(editTextDescriptionUpdate.getText().toString());
                 userToSendUpdate.setEmail(firebaseUserUpdate.getEmail());
                 userToSendUpdate.setFirstname(editTextFirstnameUpdate.getText().toString());
@@ -520,5 +531,84 @@ public class UpdateProfileActivity extends AppCompatActivity {
         //Creating dialog box
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void getUserInfo(){
+        RetrofitService retrofitService = new RetrofitService();
+        UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+        System.out.println(firebaseUserUpdate.getEmail() + "ska vara eposten");
+        emailUpdate = firebaseUserUpdate.getEmail();
+        System.out.println(emailUpdate);
+
+        userApi.findUserByEmail(emailUpdate).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                userUpdate.setId(response.body().getId());
+                editTextUsernameUpdate.setText(response.body().getUsername());
+                editTextFirstnameUpdate.setText(response.body().getFirstname());
+                editTextLastnameUpdate.setText(response.body().getLastname());
+                editTextGenderUpdate.setText(response.body().getGender());
+                searchViewCityUpdate.setQueryHint(response.body().getCity()); //oklart om det fungerar
+                userUpdate.setCity(response.body().getCity());
+                editTextDescriptionUpdate.setText(response.body().getDescription());
+
+                getUserQualifications();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+            }
+        });
+    }
+
+    private void getUserQualifications(){
+        RetrofitService retrofitService = new RetrofitService();
+        UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+        Long userId = userUpdate.getId();
+        System.out.println("userId: " + userId);
+
+        userApi.getUserQualificationsByUserId(userId).enqueue(new Callback<UserQualifications>() {
+            @Override
+            public void onResponse(Call<UserQualifications> call, Response<UserQualifications> response) {
+                //formatting the output
+                String allSelectedQualifications = "";
+
+                String q1 = response.body().getQ1();
+                if (!q1.equals("")){
+                    allSelectedQualifications += q1 + ", ";
+                }
+                String q2 = response.body().getQ2();
+                if (!q2.equals("")){
+                    allSelectedQualifications += q2 + ", ";
+                }
+                String q3 = response.body().getQ3();
+                if (!q3.equals("")){
+                    allSelectedQualifications += q3 + ", ";
+                }
+                String q4 = response.body().getQ4();
+                if (!q4.equals("")){
+                    allSelectedQualifications += q4 + ", ";
+                }
+                String q5 = response.body().getQ5();
+                if (!q5.equals("")){
+                    allSelectedQualifications += q5;
+                }
+                //the StringBuffer is used to remove commas if the chosen option is not the last
+                if (allSelectedQualifications.endsWith(","))
+                {
+                    StringBuffer sb = new StringBuffer(allSelectedQualifications);
+                    allSelectedQualifications = String.valueOf(sb.deleteCharAt(sb.length() -1));
+                }
+                textViewQualificationsUpdate.setText(allSelectedQualifications);
+            }
+
+            @Override
+            public void onFailure(Call<UserQualifications> call, Throwable t) {
+                Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+            }
+        });
     }
 }

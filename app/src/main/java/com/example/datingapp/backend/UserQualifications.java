@@ -2,11 +2,11 @@ package com.example.datingapp.backend;
 
 public class UserQualifications {
     private Long id;
-    private String q1;
-    private String q2;
-    private String q3;
-    private String q4;
-    private String q5;
+    private String q1 = "";
+    private String q2 = "";
+    private String q3 = "";
+    private String q4 = "";
+    private String q5 = "";
     private Long userId;
 
     public UserQualifications(Long id, String q1, String q2, String q3, String q4, String q5, Long userId) {
@@ -81,14 +81,6 @@ public class UserQualifications {
 
     @Override
     public String toString() {
-        return "UserQualifications{" +
-                "id=" + id +
-                ", q1='" + q1 + '\'' +
-                ", q2='" + q2 + '\'' +
-                ", q3='" + q3 + '\'' +
-                ", q4='" + q4 + '\'' +
-                ", q5='" + q5 + '\'' +
-                ", userId=" + userId +
-                '}';
+        return q1 + q2 + q3 +q4 +q5;
     }
 }

@@ -123,7 +123,7 @@
                 android:id="@+id/textViewPreferencesUpdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/choose_qualifications"
+                android:hint="@string/choose_preference"
                 android:textColorHint="#757575"
                 tools:ignore="RelativeOverlap" />
 
