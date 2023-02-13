@@ -5,24 +5,21 @@
     <item
         android:title="Search"
         android:icon="@drawable/baseline_search_24"
-        android:id="@+id/search"
+        android:id="@+id/appBarSearch"
         app:showAsAction="ifRoom|collapseActionView"
         android:actionViewClass="androidx.appcompat.widget.SearchView"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         tools:ignore="AppCompatResource" />
     <item
-        android:title="Profile"
-        android:icon="@drawable/baseline_more_vert_24"
-        android:id="@+id/profile"
-        app:showAsAction="never"/>
+        android:title="GoBack"
+        android:icon="@drawable/ic_arrow_back"
+        android:id="@+id/appBarGoBack"
+        android:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        tools:ignore="AppCompatResource" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/appBarSettings"
         android:title="Settings"
         app:showAsAction="never"/>
-    <item
-        android:title="Add"
-        android:id="@+id/add"
-        android:icon="@drawable/baseline_person_add_24"
-        app:showAsAction="ifRoom"/>
-
 </menu>
