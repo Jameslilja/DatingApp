@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textViewRegisterNow;
-    Button buttonTestStuff;
 
     boolean newUser = true;
 
@@ -45,18 +44,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        //test
-        buttonTestStuff = findViewById(R.id.buttonTestStuff);
-
-        buttonTestStuff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SearchUserAndQualificationActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.emailLogIn);

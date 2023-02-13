@@ -41,7 +41,6 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
     boolean isSwapButtonPressed = false; //false innebär sök efter användare och och true innebär sök på qualification
     ArrayList<Qualification> arrayListQualification;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

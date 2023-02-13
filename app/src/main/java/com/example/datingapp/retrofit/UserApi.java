@@ -30,6 +30,11 @@ public interface UserApi {
     @GET("user/findAllUsers")
     Call<List<User>> findAllUsers();
 
+    @GET("user/match")
+    Call<Integer> matchUserAndCurrentProfile(
+            @Query("userId") Long userId,
+            @Query("visitedProfileId") Long visitedProfileId);
+
     @POST("userPref/save")
     Call<String> savePreferences(@Body UserPreferences userPreferences);
 

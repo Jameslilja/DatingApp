@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     FirebaseUser user;
 
+    Button goToSearchButton;
     Button buttonUpdateProfile;
 
     @Override
@@ -24,11 +25,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        goToSearchButton = findViewById(R.id.goToSearchButton);
         buttonUpdateProfile = findViewById(R.id.buttonProfileSettings);
         auth = FirebaseAuth.getInstance();
         buttonLogOut = findViewById(R.id.logout);
         textView = findViewById(R.id.user_details);
         user = auth.getCurrentUser();
+
+        //search
+        goToSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), SearchUserAndQualificationActivity.class);
+                        startActivity(intent);
+            }
+        });
 
         //LOGOUT
         if(user == null){

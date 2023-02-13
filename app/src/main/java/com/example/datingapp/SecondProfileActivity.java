@@ -1,9 +1,6 @@
 package com.example.datingapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +9,8 @@ import com.example.datingapp.backend.User;
 import com.example.datingapp.backend.UserQualifications;
 import com.example.datingapp.retrofit.RetrofitService;
 import com.example.datingapp.retrofit.UserApi;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,11 +24,17 @@ public class SecondProfileActivity extends AppCompatActivity {
     private String selectedUsername;
     TextView textViewDisplayUsername;
     User otherUser = new User();
-    Long userId;
+    Long visitedProfileId;
+    String signedInUserEmail;
+    Long signedInUserId;
     TextView textViewDisplayCity;
     TextView textViewDisplayDescription;
     TextView textViewDisplayQualifications;
+    int matchPercent;
+    TextView textViewMatchPercent;
 
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,28 +49,30 @@ public class SecondProfileActivity extends AppCompatActivity {
         textViewDisplayCity = findViewById(R.id.textViewItemCity);
         textViewDisplayDescription = findViewById(R.id.textViewItemDescription);
         textViewDisplayQualifications = findViewById(R.id.textViewItemQualifications);
+        textViewMatchPercent = findViewById(R.id.textViewMatchPercent);
 
-        getUserInfo();
+        getOtherUserInfo();
+        getCurrentUserByEmail();
     }
 
-    private void getUserInfo(){
+    private void getOtherUserInfo(){
         RetrofitService retrofitService = new RetrofitService();
         UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
 
         userApi.findUserByUsername(selectedUsername).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                userId = response.body().getId();
+                visitedProfileId = response.body().getId();
                 otherUser.setCity(response.body().getCity());
                 textViewDisplayCity.setText(response.body().getCity());
                 textViewDisplayDescription.setText(response.body().getDescription());
                 //MATCHNINGSPROCENTEN
 
-                System.out.println("userId: " + userId);
+                System.out.println("userId: " + visitedProfileId);
                 System.out.println("body: " + response.body());
                 System.out.println("code: " + response.code());
 
-                getUserQualifications();
+                getOtherUserQualifications();
             }
 
             @Override
@@ -75,13 +82,13 @@ public class SecondProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void getUserQualifications(){
+    private void getOtherUserQualifications(){
         RetrofitService retrofitService = new RetrofitService();
         UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
 
-        System.out.println("getUserId: " + userId);
+        System.out.println("getUserId: " + visitedProfileId);
 
-        userApi.getUserQualificationsByUserId(userId).enqueue(new Callback<UserQualifications>() {
+        userApi.getUserQualificationsByUserId(visitedProfileId).enqueue(new Callback<UserQualifications>() {
             @Override
             public void onResponse(Call<UserQualifications> call, Response<UserQualifications> response) {
                 System.out.println("body: " + response.body());
@@ -118,7 +125,50 @@ public class SecondProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserQualifications> call, Throwable t) {
+                Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+            }
+        });
+    }
 
+    private void getCurrentUserByEmail(){
+        signedInUserEmail = firebaseAuth.getCurrentUser().getEmail();
+
+        RetrofitService retrofitService = new RetrofitService();
+        UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+        userApi.findUserByEmail(signedInUserEmail).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                signedInUserId = response.body().getId();
+                matchUserAndCurrentProfile();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
+            }
+        });
+
+    }
+
+    private void matchUserAndCurrentProfile() {
+        RetrofitService retrofitService = new RetrofitService();
+        UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+        System.out.println("signedInUserId: " + signedInUserId);
+        System.out.println("visitedProfileId: " + visitedProfileId);
+
+        userApi.matchUserAndCurrentProfile(signedInUserId, visitedProfileId).enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                matchPercent = response.body();
+                System.out.println("%: " + matchPercent);
+                textViewMatchPercent.setText("Ni matchar till " + matchPercent + "%");
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Logger.getLogger(NewUserFirstTimeLogin.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });
     }
