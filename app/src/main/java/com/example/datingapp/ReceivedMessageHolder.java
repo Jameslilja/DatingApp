@@ -16,7 +16,7 @@ private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         messageText = (TextView),itemView.findViewById(R.id.chat_from_user);
         timeText = (TextView) itemView.findViewById(R.id.card_gchat_message_other);
         nameText = (TextView) itemView.findViewById(R.id.message_from_other);
-        profileImage = (TextView)itemView.findViewById(R.id.image_gchat_profile_other);
+        profileImage = (ImageView) itemView.findViewById(R.id.image_gchat_profile_other);
 
     }
 
@@ -24,7 +24,7 @@ private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         messageText.setText(message.getMessage());
         timeText.setText(DateUtils.formatDateTime(message.getCreatedAt()));
         nameText.setText(message.getSender().getNickname());
-        Utils.displayRoundImageFromUrl(mcContext,message.getSender().getProfileUrl(),profileImage);
+        DateUtils.displayRoundImageFromUrl(mcContext,message.getSender().getProfileUrl(),profileImage);
 
 
     }
