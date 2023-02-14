@@ -30,6 +30,10 @@
     <string name="search_username">Sök efter användarnamn</string>
     <string name="swap_search">Ändra sök</string>
     <string name="qualifications">Kvalifikatoner</string>
+    <string name="go_back">Gå tillbaka</string>
+    <string name="hmm">hmm</string>
+    <string name="your_conversations">Dina konversationer</string>
+    <string name="todo">TODO</string>
 
     <string-array name="citiesInSwedenArray">
         <item> Alfta </item>

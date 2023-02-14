@@ -50,6 +50,9 @@ public interface UserApi {
     @POST("userQ/changeQualifications")
     Call<String> updateUserQualifications(@Body UserQualifications userQualifications);
 
+    @GET("userQ/findAll")
+    Call<List<UserQualifications>> getAllQualifications();
+
     @GET("userQ/findUserQualificationsByUserId")
     Call<UserQualifications> getUserQualificationsByUserId(@Query("userId") Long userId);
 

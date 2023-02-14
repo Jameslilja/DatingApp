@@ -17,23 +17,32 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     FirebaseUser user;
 
-    Button goToSearchButton;
+    Button buttonGoToSearch;
     Button buttonUpdateProfile;
+    Button buttonGoToConversations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        goToSearchButton = findViewById(R.id.goToSearchButton);
+        buttonGoToSearch = findViewById(R.id.goToSearchButton);
         buttonUpdateProfile = findViewById(R.id.buttonProfileSettings);
+        buttonGoToConversations = findViewById(R.id.goToConversationsButton);
         auth = FirebaseAuth.getInstance();
         buttonLogOut = findViewById(R.id.logout);
-        textView = findViewById(R.id.user_details);
         user = auth.getCurrentUser();
 
+        buttonGoToConversations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FriendsListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //search
-        goToSearchButton.setOnClickListener(new View.OnClickListener() {
+        buttonGoToSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), SearchUserAndQualificationActivity.class);
@@ -41,13 +50,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //LOGOUT
-        if(user == null){
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-        } else {
-            textView.setText(user.getEmail());
-        }
         //LOGOUT
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override

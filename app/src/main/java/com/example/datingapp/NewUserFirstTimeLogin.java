@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +46,7 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
     boolean [] selectedQualifications;
     ArrayList<Integer> qualificationList = new ArrayList<>();
     String [] qualificationArray = {"Datorkunskaper", "Kommunikation", "Problemlösning", "Tidshantering", "Överförbara kompetenser"};
+    String [] qualificationArrayFromDatabase;
     ArrayList<String> selectedQualificationsToSend;
     String qualifications1;
     String qualifications2;
@@ -429,6 +431,31 @@ public class NewUserFirstTimeLogin extends AppCompatActivity {
         });
         builder.show();
     }
+
+    /*
+    private void getQualifications(){
+        RetrofitService retrofitService = new RetrofitService();
+        UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
+
+        userApi.getAllQualifications().enqueue(new Callback<List<UserQualifications>>() {
+            @Override
+            public void onResponse(Call<List<UserQualifications>> call, Response<List<UserQualifications>> response) {
+                System.out.println(response.body());
+                qualificationArrayFromDatabase = response.body();
+
+                for (int i = 0; i > response.body().size(); i++){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserQualifications>> call, Throwable t) {
+
+            }
+        });
+    }
+
+     */
 
     private void closeKeyboard()
     {
