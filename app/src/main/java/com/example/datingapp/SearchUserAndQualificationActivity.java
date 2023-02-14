@@ -1,10 +1,13 @@
 package com.example.datingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -54,6 +57,31 @@ public class SearchUserAndQualificationActivity extends AppCompatActivity {
         //showQualificationsSearchDialog(); //behövs för att välja kvalifikationer
         swapSearch();
         initializeSearch();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.profile_menu, menu);
+
+        return true;
+    }
+
+    //Appbar
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menuItemSettings){
+            startActivity(new Intent(SearchUserAndQualificationActivity.this, UpdateProfileActivity.class));
+        }
+
+        if(item.getItemId() == R.id.menuItemSearch){
+            startActivity(new Intent(SearchUserAndQualificationActivity.this, SearchUserAndQualificationActivity.class));
+        }
+
+        if(item.getItemId() == R.id.menuItemGoBack){
+            startActivity(new Intent(SearchUserAndQualificationActivity.this, MainActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initializeSearch(){

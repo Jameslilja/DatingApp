@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -331,6 +333,31 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 alert.show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.profile_menu, menu);
+
+        return true;
+    }
+
+    //Appbar
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menuItemSettings){
+            startActivity(new Intent(UpdateProfileActivity.this, UpdateProfileActivity.class));
+        }
+
+        if(item.getItemId() == R.id.menuItemSearch){
+            startActivity(new Intent(UpdateProfileActivity.this, SearchUserAndQualificationActivity.class));
+        }
+
+        if(item.getItemId() == R.id.menuItemGoBack){
+            startActivity(new Intent(UpdateProfileActivity.this, MainActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void closeKeyboard()

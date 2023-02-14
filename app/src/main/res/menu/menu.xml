@@ -3,23 +3,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="Search"
-        android:icon="@drawable/baseline_search_24"
-        android:id="@+id/appBarSearch"
-        app:showAsAction="ifRoom|collapseActionView"
-        android:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        tools:ignore="AppCompatResource" />
-    <item
-        android:title="GoBack"
+        android:title="menuItemGoBack"
         android:icon="@drawable/ic_arrow_back"
-        android:id="@+id/appBarGoBack"
+        android:id="@+id/menuItemGoBack"
         android:actionViewClass="androidx.appcompat.widget.SearchView"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"
         tools:ignore="AppCompatResource" />
+
     <item
-        android:id="@+id/appBarSettings"
-        android:title="Settings"
-        app:showAsAction="never"/>
+        android:title="menuItemSearch"
+        android:icon="@drawable/baseline_search_24"
+        android:id="@+id/menuItemSearch"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        tools:ignore="AppCompatResource" />
+
+    <item
+        android:title="menuItemSettings"
+        android:icon="@drawable/baseline_settings_24"
+        android:id="@+id/menuItemSettings"
+        android:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        tools:ignore="AppCompatResource" />
+
 </menu>
