@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class SentMessageHolder extends RecyclerView.ViewHolder {
+/*public class SentMessageHolder extends RecyclerView.ViewHolder {
     TextView messageText, timeText;
 
     SentMessageHolder(View itemView){
@@ -21,4 +21,4 @@ public class SentMessageHolder extends RecyclerView.ViewHolder {
 
         timeText.setText(DateUtils.formatDateTime(message.getCreatedAt()));
     }
-}
+}*/

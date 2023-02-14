@@ -1,4 +1,4 @@
-package com.example.datingapp;
+/*package com.example.datingapp;
 
 import android.content.Context;
 import android.text.format.DateUtils;
@@ -32,7 +32,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position){
         UserMessage message = (UserMessage) mMessageList.get(position);
 
-        if (message.getSender().getUserId().equals(SendBird.getCurrentUser().getUserId())){
+        if (message.getSender().getUserId().equals(mStompclient.getCurrentUser().getUserId())){
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
             return VIEW_TYPE_MESSAGE_RECEIVED;
@@ -98,4 +98,4 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             DateUtils.displayRoundImageFromUrl(mContext, message.getSender().getProfileUrl(), profileImage);
         }
     }
-}
+}*/

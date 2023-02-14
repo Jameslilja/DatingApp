@@ -1,4 +1,4 @@
-package com.example.datingapp;
+/*package com.example.datingapp;
 
 import android.text.format.DateUtils;
 import android.view.View;
@@ -28,4 +28,4 @@ private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
 
 
     }
-}
+}*/
