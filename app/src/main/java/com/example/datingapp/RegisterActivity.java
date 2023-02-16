@@ -12,12 +12,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.datingapp.chat.UserChat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;
@@ -75,12 +77,16 @@ public class RegisterActivity extends AppCompatActivity {
                       return;
                   }
 
-                   mAuth.createUserWithEmailAndPassword(email, password)
-                           .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                   mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                @Override
                                public void onComplete(@NonNull Task<AuthResult> task) {
                                    progressBar.setVisibility(View.GONE);
                                    if (task.isSuccessful()) {
+                                       //chat implementation
+                                       //added for the chat implementation
+                                       FirebaseDatabase.getInstance().getReference("user/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(new UserChat(editTextEmail.getText().toString()));
+
+                                       //was here before
                                         Toast.makeText(RegisterActivity.this, "Konto skapat.",
                                                 Toast.LENGTH_SHORT).show();
                                        Intent intent = new Intent(getApplicationContext(), NewUserFirstTimeLogin.class);

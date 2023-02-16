@@ -11,38 +11,43 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.datingapp.chat.FriendsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     Button buttonLogOut;
-    TextView textView;
     FirebaseUser user;
 
     Button buttonGoToSearch;
     Button buttonUpdateProfile;
     Button buttonGoToConversations;
 
+    //CHAT TEST
+    Button goToChatTestButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //CHAT TEST
+        goToChatTestButton = findViewById(R.id.goToChatTestButton);
+
+        goToChatTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, FriendsActivity.class));
+            }
+        });
+
         buttonGoToSearch = findViewById(R.id.goToSearchButton);
         buttonUpdateProfile = findViewById(R.id.buttonProfileSettings);
-        buttonGoToConversations = findViewById(R.id.goToConversationsButton);
         auth = FirebaseAuth.getInstance();
         buttonLogOut = findViewById(R.id.logout);
         user = auth.getCurrentUser();
 
-        buttonGoToConversations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FriendsListActivity.class);
-                startActivity(intent);
-            }
-        });
 
         //search
         buttonGoToSearch.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
 
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 

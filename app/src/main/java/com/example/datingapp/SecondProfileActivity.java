@@ -34,7 +34,7 @@ public class SecondProfileActivity extends AppCompatActivity {
     TextView textViewDisplayCity;
     TextView textViewDisplayDescription;
     TextView textViewDisplayQualifications;
-    int matchPercent;
+    Long matchPercent;
     TextView textViewMatchPercent;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -190,7 +190,7 @@ public class SecondProfileActivity extends AppCompatActivity {
         userApi.matchUserAndCurrentProfile(signedInUserId, visitedProfileId).enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                matchPercent = response.body();
+                matchPercent = Long.valueOf(response.body());
                 System.out.println("%: " + matchPercent);
                 textViewMatchPercent.setText("Ni matchar till " + matchPercent + "%");
             }

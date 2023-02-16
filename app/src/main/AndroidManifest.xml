@@ -18,10 +18,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".FriendsActivity"
+            android:name=".chat.MessageActivity"
             android:exported="false" />
         <activity
-            android:name=".FriendsListActivity"
+            android:name=".chat.FriendsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".chat.UserChat"
+            android:exported="false" />
+        <activity
+            android:name=".chat.UsersAdapter"
             android:exported="false" />
         <activity
             android:name=".TestActivity"
