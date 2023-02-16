@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button buttonGoToSearch;
     Button buttonUpdateProfile;
-    Button buttonGoToConversations;
 
     //CHAT TEST
     Button goToChatTestButton;

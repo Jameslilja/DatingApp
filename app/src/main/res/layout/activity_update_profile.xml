@@ -140,10 +140,12 @@
     </com.google.android.material.card.MaterialCardView>
 
     <Button
+        android:id="@+id/buttonUpdatePrivateInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:text="@string/change_password"
-        android:id="@+id/buttonUpdatePrivateInfo"/>
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:layout_width="wrap_content"
