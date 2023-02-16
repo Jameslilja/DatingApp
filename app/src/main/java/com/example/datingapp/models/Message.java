@@ -1,8 +1,5 @@
 package com.example.datingapp.models;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 public class Message {
     private Long id;
     private String messageContent;
@@ -18,7 +15,6 @@ public class Message {
         this.id = id;
         this.messageContent = messageContent;
         this.sender = sender;
-        this.receiver = receiver;
         this.conversation = conversation;
     }
 

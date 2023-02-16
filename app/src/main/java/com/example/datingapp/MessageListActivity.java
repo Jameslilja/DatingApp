@@ -1,64 +1,55 @@
 package com.example.datingapp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.datingapp.models.Conversation;
-import com.example.datingapp.models.User;
-import com.google.gson.Gson;
 import com.example.datingapp.models.Message;
+import com.example.datingapp.models.User;
 
-import org.java_websocket.WebSocket;
-
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.UUID;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import java.util.List;
 
 public class MessageListActivity extends AppCompatActivity {
     private RecyclerView mMessageRecycler;
-    private OkHttpClient client;
-    private WebSocket webSocket;
+    private MessageListAdapter mMessageAdapter;
+    private WebSocketClient webSocketClient;
+    private User currentUser;
+    private User chattingUser;
 
+    public MessageListActivity(User currentUser, User chattingUser) {
+        this.currentUser = currentUser;
+        this.chattingUser = chattingUser;
+    }
 
-    /*@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        List<Message> messageList = new ArrayList<>();
         mMessageRecycler = (RecyclerView) findViewById(R.id.recycler_view);
         mMessageAdapter = new MessageListAdapter(this, messageList);
         mMessageRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mMessageRecycler.setAdapter(mMessageAdapter);*/
+        mMessageRecycler.setAdapter(mMessageAdapter);
+
+        }
+    public void onSendButtonClick(View view) {
+        EditText messageEditText = findViewById(R.id.edit_text);
+        String messageText = messageEditText.getText().toString().trim();
+
+        if (!messageText.isEmpty()) {
+            Message message = new Message();
+            message.setMessageContent(messageText);
+            message.setSender(currentUser);
+            message.setReceiver(chattingUser);
+
+            webSocketClient.sendMessage(message);
+            messageEditText.setText("");
+        }
     }
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_chat);
-
-            client = new OkHttpClient();
-            Request request = new Request.Builder().url("http://localhost:8080/ws").build();
-            webSocket = client.newWebSocket(request, new ChatWebSocketListener());
-        }
-
-        public void sendMessage(String messageContent, User sender, User receiver) {
-            Message chatMessage = new Message();
-            chatMessage.getId();
-            chatMessage.getSender();
-            chatMessage.getMessageContent();
-            chatMessage.getReceiver();
-            chatMessage.getMessageContent();
-            Conversation conversation = new Conversation(UUID.randomUUID().toString(), sender, receiver, new ArrayList<Message>());
-            conversation.getMessages().add(chatMessage);
-            Gson gson = new Gson();
-            webSocket.send(gson.toJson(conversation));
-
-        }
 }
-
